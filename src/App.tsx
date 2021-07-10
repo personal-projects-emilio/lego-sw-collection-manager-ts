@@ -1,5 +1,12 @@
 import React from "react";
+import Routes from "./routes";
 
-const App = () => <div className="App">Lego SW Collection Manager</div>;
+const App = () => (
+  <>
+    {/* <Header /> */}
+    <div>This is the futur header</div>
+    <Routes />
+  </>
+);
 
 export default App;

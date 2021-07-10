@@ -1,9 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import App from "./App";
+import { renderWithMemoryRouter } from "./utils";
 
-test("renders learn react link", () => {
-  render(<App />);
-  const linkElement = screen.getByText(/Lego/i);
-  expect(linkElement).toBeInTheDocument();
+test("renders the header", () => {
+  renderWithMemoryRouter(<App />);
+  const headerElement = screen.getByText(/header/i);
+  expect(headerElement).toBeInTheDocument();
 });
