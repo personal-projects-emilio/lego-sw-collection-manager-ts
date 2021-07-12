@@ -5,6 +5,6 @@ import { renderWithMemoryRouter } from "./utils";
 
 test("renders the header", () => {
   renderWithMemoryRouter(<App />);
-  const headerElement = screen.getByText(/header/i);
+  const headerElement = screen.getByText(/lego sw/i);
   expect(headerElement).toBeInTheDocument();
 });

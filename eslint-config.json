@@ -1,0 +1,22 @@
+{
+  "eslintConfig": {
+    "extends": ["react-app", "airbnb"],
+    "plugins": ["tsx-a11y"],
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": ["src"]
+        }
+      }
+    }
+  },
+  "rules": {
+    "additional-rule": "warn"
+  },
+  "overrides": [{
+    "files": ["**/*.ts?(x)"],
+    "rules": {
+      "additional-typescript-only-rule": "warn"
+    }
+  }]
+}
