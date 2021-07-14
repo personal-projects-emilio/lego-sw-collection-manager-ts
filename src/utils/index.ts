@@ -1,1 +1,1 @@
-export { renderWithMemoryRouter, renderWithRouter } from './test';
+export { getStatistics, getTagsAndCharacNames } from './minifigs';

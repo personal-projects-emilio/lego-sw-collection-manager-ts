@@ -1,23 +1,22 @@
 import React from "react";
-import { fireEvent, screen } from "@testing-library/react";
 import BurgerMenu from "./BurgerMenu";
-import { renderWithRouter, renderWithMemoryRouter } from "utils";
+import { render, fireEvent, screen } from "utils/test";
 
 test("renders burger menu", () => {
-  renderWithMemoryRouter(<BurgerMenu />);
+  render(<BurgerMenu />);
   const authTabElement = screen.getByText(/Authentication/i);
   expect(authTabElement).toBeInTheDocument();
 });
 
 test("render the minifigs as selected", () => {
-  renderWithRouter(<BurgerMenu />, { route: "/minifigs" });
+  render(<BurgerMenu />, {}, { route: "/minifigs" });
 
   const minifigsTabElement = screen.getByTestId("minifigs");
   expect(minifigsTabElement.className).toMatch(/activeLink/i);
 });
 
 test("open the menu and change the route", () => {
-  renderWithRouter(<BurgerMenu />, { route: "/minifigs" });
+  render(<BurgerMenu />, {}, { route: "/minifigs" });
   const burgerIconElement = screen.getByTestId("burger-icon");
   const authTabElement = screen.getByTestId("auth");
   expect(authTabElement).not.toBeVisible();
