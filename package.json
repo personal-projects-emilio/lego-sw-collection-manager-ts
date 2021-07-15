@@ -30,7 +30,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:coverage": "react-scripts test --coverage",
+    "test:coverage": "react-scripts test --coverage --watchAll",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -54,6 +54,10 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
+      "!src/reportWebVitals.ts",
+      "!src/react-app-env.d.ts",
+      "!src/interfaces/*.{js,jsx,ts,tsx}",
+      "!src/**/index.{js,jsx,ts,tsx}",
       "!src/providers/**/*.{ts,tsx}"
     ],
     "transformIgnorePatterns": [
