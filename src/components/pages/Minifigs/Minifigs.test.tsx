@@ -6,7 +6,7 @@ import Minifigs from "./Minifigs";
 
 export const handlers = [
   rest.get(
-    `${process.env.REACT_APP_BASEURL}/minifigs.json`,
+    `${process.env.REACT_APP_API_BASEURL}/minifigs.json`,
     (_req, res, ctx) => {
       return res(ctx.json([{ id: "sw0001" }]), ctx.delay(150));
     }
