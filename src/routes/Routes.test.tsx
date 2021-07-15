@@ -4,12 +4,12 @@ import { render, screen } from "utils/test";
 
 test("render minifig route", () => {
   render(<Routes />);
-  const minifigsElement = screen.getByText(/minifigs/i);
-  expect(minifigsElement).toBeInTheDocument();
+  const loadingElement = screen.getByText(/loading/i);
+  expect(loadingElement).toBeInTheDocument();
 });
 
 test("render the auth route", () => {
-  render(<Routes />, {}, { route: "/auth" });
+  render(<Routes />, { route: "/auth" });
 
   const authElement = screen.getByText(/auth/i);
   expect(authElement).toBeInTheDocument();

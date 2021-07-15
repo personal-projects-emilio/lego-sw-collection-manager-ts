@@ -1,4 +1,4 @@
-import { MinifigsList, TagOrCharacName } from "interfaces/minifigs";
+import { MinifigsList, TagOrCharacNameList } from "interfaces/minifigs";
 
 export const getStatistics = (minifigsList: MinifigsList) => {
   const totalNumber = minifigsList.length;
@@ -8,7 +8,7 @@ export const getStatistics = (minifigsList: MinifigsList) => {
 }
 
 export const getTagsAndCharacNames = (minifigsList: MinifigsList) => {
-  const tagsAndCharacNamesLists = minifigsList.reduce<{ tags: TagOrCharacName[], characNames: TagOrCharacName[] }>((accumulator, currentMinifig) => {
+  const tagsAndCharacNamesLists = minifigsList.reduce<Record<'tags' | 'characNames', TagOrCharacNameList>>((accumulator, currentMinifig) => {
     const { characterName, tags } = currentMinifig;
 
     const characNameIndex = accumulator.characNames.findIndex(el => el.name === characterName)
