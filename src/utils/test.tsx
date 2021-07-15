@@ -1,27 +1,36 @@
 import React, { ReactElement } from "react";
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { store } from "store";
+import { RootState, initStore } from "store";
 import { BrowserRouter } from "react-router-dom";
 
 export interface WrapperProps {
   children: ReactElement;
 }
 
+interface ExtendedRenderOptions extends RenderOptions {
+  preloadedState?: Partial<RootState>;
+  route?: string;
+}
+
 const render = (
   ui: ReactElement,
-  renderOptions?: RenderOptions,
-  { route = "/" } = {}
+  extendedRenderOptions?: ExtendedRenderOptions
 ) => {
-  window.history.pushState({}, "Test page", route);
+  window.history.pushState(
+    {},
+    "Test page",
+    extendedRenderOptions?.route || "/"
+  );
+
   const Wrapper: React.FC = ({ children }) => {
     return (
-      <Provider store={store}>
+      <Provider store={initStore(extendedRenderOptions?.preloadedState)}>
         <BrowserRouter>{children}</BrowserRouter>
       </Provider>
     );
   };
-  return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
+  return rtlRender(ui, { wrapper: Wrapper, ...extendedRenderOptions });
 };
 
 // re-export everything

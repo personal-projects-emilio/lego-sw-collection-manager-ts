@@ -9,14 +9,14 @@ test("renders burger menu", () => {
 });
 
 test("render the minifigs as selected", () => {
-  render(<BurgerMenu />, {}, { route: "/minifigs" });
+  render(<BurgerMenu />, { route: "/minifigs" });
 
   const minifigsTabElement = screen.getByTestId("minifigs");
   expect(minifigsTabElement.className).toMatch(/activeLink/i);
 });
 
 test("open the menu and change the route", () => {
-  render(<BurgerMenu />, {}, { route: "/minifigs" });
+  render(<BurgerMenu />, { route: "/minifigs" });
   const burgerIconElement = screen.getByTestId("burger-icon");
   const authTabElement = screen.getByTestId("auth");
   expect(authTabElement).not.toBeVisible();

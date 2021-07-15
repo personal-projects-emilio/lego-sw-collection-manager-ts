@@ -12,3 +12,5 @@ export interface TagOrCharacName {
   name: string;
   amount: number;
 }
+
+export type TagOrCharacNameList = TagOrCharacName[]

@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import api from 'api';
-import { TagOrCharacName, MinifigsList } from 'interfaces/minifigs';
+import { TagOrCharacNameList, MinifigsList } from 'interfaces/minifigs';
 import { getTagsAndCharacNames } from 'utils';
 
 // Define a type for the slice state
 interface MinifigsState {
   list: null | MinifigsList;
-  tags: null | TagOrCharacName[];
-  characNames: null | TagOrCharacName[];
+  tags: null | TagOrCharacNameList;
+  characNames: null | TagOrCharacNameList;
 }
 
 const initialState: MinifigsState = {
@@ -34,7 +34,7 @@ export const minifigsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchMinifigs.fulfilled, (state, { payload: list }) => ({
+    builder.addCase(fetchMinifigs.fulfilled, (_state, { payload: list }) => ({
       list,
       ...getTagsAndCharacNames(list)
     }))
