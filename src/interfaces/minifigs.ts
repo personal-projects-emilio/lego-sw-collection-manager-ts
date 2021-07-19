@@ -13,4 +13,10 @@ export interface TagOrCharacName {
   amount: number;
 }
 
-export type TagOrCharacNameList = TagOrCharacName[]
+export type TagOrCharacNameList = TagOrCharacName[];
+
+export type MinifigsFilters = {
+  show: 'all' | 'owned' | 'missing';
+  characName: string | null;
+  tag: string | null;
+}

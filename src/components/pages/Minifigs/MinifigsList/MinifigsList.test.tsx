@@ -1,6 +1,6 @@
 import React from "react";
 import { RootState } from "store";
-import { render, screen } from "utils/test";
+import { render, screen, fireEvent } from "utils/test";
 import MinifigsList from "./MinifigsList";
 
 test("render null", async () => {
@@ -9,6 +9,11 @@ test("render null", async () => {
       list: null,
       tags: null,
       characNames: null,
+      filters: {
+        show: "all",
+        tag: null,
+        characName: null,
+      },
     },
   };
   render(<MinifigsList />, { preloadedState });
@@ -19,12 +24,27 @@ test("render null", async () => {
 test("render no results", async () => {
   const preloadedState: RootState = {
     minifigs: {
-      list: [],
+      list: [
+        {
+          id: "sw0001",
+          possessed: false,
+          tags: [],
+          characterName: "test",
+          name: "test",
+        },
+      ],
       tags: null,
       characNames: null,
+      filters: {
+        show: "owned",
+        tag: null,
+        characName: null,
+      },
     },
   };
   render(<MinifigsList />, { preloadedState });
-  expect(screen.queryByText(/pagination/i)).toBeNull();
-  expect(screen.queryAllByText(/filters/i)).not.toBeNull();
+  const resetButtonElement = screen.getByText(/Reset filters/i);
+  expect(resetButtonElement).toBeInTheDocument();
+  fireEvent.click(resetButtonElement);
+  expect(resetButtonElement).not.toBeInTheDocument();
 });
