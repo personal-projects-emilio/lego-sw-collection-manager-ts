@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-
 import Grid from "@material-ui/core/Grid";
-
 import { useAppDispatch, useAppSelector } from "hooks/store";
 import Loader from "components/commons/Loader";
 import { selectMinifigsList, fetchMinifigs } from "store/minifigs";
 import MinifigsList from "./MinifigsList";
+import MinifigsMenu from "./MinifigsMenu";
 
 export const Minifigs = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +19,7 @@ export const Minifigs = () => {
   return (
     <Grid container justifyContent="center" alignItems="stretch">
       <Grid item xs={12}>
-        Minifigs filters and misce
+        <MinifigsMenu />
       </Grid>
       <MinifigsList />
     </Grid>

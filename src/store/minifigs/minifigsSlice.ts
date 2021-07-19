@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import api from 'api';
-import { TagOrCharacNameList, MinifigsList } from 'interfaces/minifigs';
+import { TagOrCharacNameList, MinifigsList, MinifigsFilters } from 'interfaces/minifigs';
 import { getTagsAndCharacNames } from 'utils';
 
 // Define a type for the slice state
@@ -8,12 +8,18 @@ interface MinifigsState {
   list: null | MinifigsList;
   tags: null | TagOrCharacNameList;
   characNames: null | TagOrCharacNameList;
+  filters: MinifigsFilters;
 }
 
 const initialState: MinifigsState = {
   list: null,
   tags: null,
-  characNames: null
+  characNames: null,
+  filters: {
+    show: 'all',
+    characName: null,
+    tag: null
+  }
 }
 
 export const fetchMinifigs = createAsyncThunk('minifigs/fetchMinifigs',
@@ -32,9 +38,17 @@ export const fetchMinifigs = createAsyncThunk('minifigs/fetchMinifigs',
 export const minifigsSlice = createSlice({
   name: 'minifigs',
   initialState,
-  reducers: {},
+  reducers: {
+    setMinifigsFilters: (state, action: PayloadAction<MinifigsFilters>) => {
+      state.filters = action.payload
+    },
+    resetMinifigsFilters: state => {
+      state.filters = { show: 'all', tag: null, characName: null }
+    }
+  },
   extraReducers: builder => {
-    builder.addCase(fetchMinifigs.fulfilled, (_state, { payload: list }) => ({
+    builder.addCase(fetchMinifigs.fulfilled, (state, { payload: list }) => ({
+      ...state,
       list,
       ...getTagsAndCharacNames(list)
     }))
@@ -42,6 +56,6 @@ export const minifigsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-// export const { } = minifigsSlice.actions
+export const { setMinifigsFilters, resetMinifigsFilters } = minifigsSlice.actions
 
 export default minifigsSlice.reducer
