@@ -26,9 +26,11 @@
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
-    "msw": "^0.32.0"
+    "msw": "^0.32.0",
+    "source-map-explorer": "^2.5.2"
   },
   "scripts": {
+    "analyze": "npm run build && source-map-explorer 'build/static/js/*.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
