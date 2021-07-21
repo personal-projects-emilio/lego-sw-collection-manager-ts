@@ -1,26 +1,18 @@
 import React from "react";
-import { RootState } from "store";
-import { render, screen, fireEvent } from "utils/test";
+import produce from "immer";
+import { render, screen, fireEvent, initialStoreMocked } from "utils/test";
 import MinifigsFilters from "./MinifigsFilters";
 
-const preloadedState: RootState = {
-  minifigs: {
-    list: null,
-    tags: [
-      { name: "Jedi", amount: 5 },
-      { name: "Sith", amount: 2 },
-    ],
-    characNames: [
-      { name: "Darth Vader", amount: 2 },
-      { name: "Luke Skywalker", amount: 5 },
-    ],
-    filters: {
-      show: "all",
-      tag: null,
-      characName: null,
-    },
-  },
-};
+const preloadedState = produce(initialStoreMocked, (draft) => {
+  draft.minifigs.tags = [
+    { name: "Jedi", amount: 5 },
+    { name: "Sith", amount: 2 },
+  ];
+  draft.minifigs.characNames = [
+    { name: "Darth Vader", amount: 2 },
+    { name: "Luke Skywalker", amount: 5 },
+  ];
+});
 
 test("render radio button show filter", () => {
   render(<MinifigsFilters />, { preloadedState });
@@ -77,19 +69,7 @@ test("render tag  filter autocomplete", async () => {
 });
 
 test("set empty options to tag/characName autocomplete", async () => {
-  const initialState: RootState = {
-    minifigs: {
-      list: null,
-      tags: null,
-      characNames: null,
-      filters: {
-        show: "all",
-        tag: null,
-        characName: null,
-      },
-    },
-  };
-  render(<MinifigsFilters />, { preloadedState: initialState });
+  render(<MinifigsFilters />);
   // Opening the tag popper
   const openPopperButtons = await screen.findAllByTitle(/open/i);
   fireEvent.click(openPopperButtons[1]);

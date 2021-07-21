@@ -1,1 +1,1 @@
-export { getStatistics, getTagsAndCharacNames } from './minifigs';
+export * from './minifigs';

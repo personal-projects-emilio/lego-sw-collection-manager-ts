@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import api from 'api';
-import { TagOrCharacNameList, MinifigsList, MinifigsFilters } from 'interfaces/minifigs';
-import { getTagsAndCharacNames } from 'utils';
+import { TagOrCharacNameList, MinifigsList, MinifigsFilters, MinifigsPagination } from 'interfaces/minifigs';
+import { getFilteredMinifigsList, getTagsAndCharacNames } from 'utils';
 
-// Define a type for the slice state
 interface MinifigsState {
   list: null | MinifigsList;
   tags: null | TagOrCharacNameList;
   characNames: null | TagOrCharacNameList;
   filters: MinifigsFilters;
+  pagination: MinifigsPagination;
 }
 
 const initialState: MinifigsState = {
@@ -19,6 +19,11 @@ const initialState: MinifigsState = {
     show: 'all',
     characName: null,
     tag: null
+  },
+  pagination: {
+    activePage: 0,
+    total: 0,
+    nbPerPage: 50
   }
 }
 
@@ -40,22 +45,34 @@ export const minifigsSlice = createSlice({
   initialState,
   reducers: {
     setMinifigsFilters: (state, action: PayloadAction<MinifigsFilters>) => {
-      state.filters = action.payload
+      const filteredList = getFilteredMinifigsList(state.list, action.payload);
+      state.filters = action.payload;
+      state.pagination.activePage = 0;
+      state.pagination.total = filteredList?.length || 0;
     },
     resetMinifigsFilters: state => {
       state.filters = { show: 'all', tag: null, characName: null }
+      state.pagination.total = state.list?.length || 0;
+      state.pagination.activePage = 0;
+    },
+    setMinifigsPagination: (state, action: PayloadAction<MinifigsPagination>) => {
+      state.pagination = action.payload
     }
   },
   extraReducers: builder => {
     builder.addCase(fetchMinifigs.fulfilled, (state, { payload: list }) => ({
       ...state,
       list,
+      pagination: {
+        ...state.pagination,
+        total: list.length
+      },
       ...getTagsAndCharacNames(list)
     }))
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { setMinifigsFilters, resetMinifigsFilters } = minifigsSlice.actions
+export const { setMinifigsFilters, resetMinifigsFilters, setMinifigsPagination } = minifigsSlice.actions
 
 export default minifigsSlice.reducer
