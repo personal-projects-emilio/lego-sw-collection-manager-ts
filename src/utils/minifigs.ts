@@ -1,12 +1,20 @@
-import { MinifigsList, TagOrCharacNameList } from "interfaces/minifigs";
+import { MinifigsFilters, MinifigsList, TagOrCharacNameList } from "interfaces/minifigs";
 
+
+/**
+ * Return the statistcs from the MinifigsList (totalNumber, numberOwned and percentageOwned)
+ * @param  {MinifigsList} minifigsList
+ */
 export const getStatistics = (minifigsList: MinifigsList) => {
   const totalNumber = minifigsList.length;
   const numberOwned = minifigsList.filter(minifig => minifig.possessed).length;
   const percentageOwned = Math.round(numberOwned / totalNumber * 10000) / 100;
   return { totalNumber, numberOwned, percentageOwned }
 }
-
+/**
+ * Return the tags and character names alphabetically sorted lists from a MinifigsList
+ * @param  {MinifigsList} minifigsList
+ */
 export const getTagsAndCharacNames = (minifigsList: MinifigsList) => {
   const tagsAndCharacNamesLists = minifigsList.reduce<Record<'tags' | 'characNames', TagOrCharacNameList>>((accumulator, currentMinifig) => {
     const { characterName, tags } = currentMinifig;
@@ -37,3 +45,18 @@ export const getTagsAndCharacNames = (minifigsList: MinifigsList) => {
   tagsAndCharacNamesLists.characNames.sort((a, b) => (a.name > b.name) ? 1 : -1);
   return tagsAndCharacNamesLists;
 }
+/**
+ * Return the filtered list of minifigs
+ * @param  {MinifigsList|null} list
+ * @param  {MinifigsFilters} filters
+ */
+export const getFilteredMinifigsList = (list: MinifigsList | null, filters: MinifigsFilters) => list?.filter(minifig => {
+  const { show, characName, tag } = filters;
+  const { possessed, tags, characterName } = minifig;
+  const showFiltered = show === "all" ||
+    (show === "owned" && possessed) ||
+    (show === "missing" && !possessed);
+  const hasFilterTag = tag ? tags?.includes(tag) : true;
+  const hasFilterCharacName = characName ? characName === characterName : true;
+  return showFiltered && hasFilterCharacName && hasFilterTag
+})

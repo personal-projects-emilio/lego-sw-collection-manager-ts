@@ -1,38 +1,38 @@
 import React from "react";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { useAppDispatch, useAppSelector } from "hooks/store";
 import {
-  selectFilteredMinifigsList,
+  selectPaginatedMinifigsList,
   resetMinifigsFilters,
 } from "store/minifigs";
+import MinifigsPagination from "../MinifigsPagination";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    loader: {
-      position: "fixed",
-      height: "calc(100vh - 48px)",
+    resetFilters: {
+      marginTop: theme.spacing(2),
     },
   })
 );
 
 export const MinifigsList = () => {
-  const filteredMinifigsList = useAppSelector(selectFilteredMinifigsList);
+  const paginatedMinifigsList = useAppSelector(selectPaginatedMinifigsList);
   const dispatch = useAppDispatch();
   const classes = useStyles();
 
-  if (!Array.isArray(filteredMinifigsList)) return null;
+  if (!Array.isArray(paginatedMinifigsList)) return null;
 
-  if (filteredMinifigsList.length === 0)
+  if (paginatedMinifigsList.length === 0)
     return (
       <Grid
         container
         justifyContent="center"
         direction="column"
         alignItems="center"
-        className={classes.loader}
+        className={classes.resetFilters}
       >
         <Typography align="center" variant="h6">
           There are no minifigs with those filters
@@ -49,16 +49,16 @@ export const MinifigsList = () => {
   return (
     <>
       <Grid item xs={12}>
-        Pagination
+        <MinifigsPagination />
       </Grid>
-      {filteredMinifigsList.slice(0, 10).map((minifig) => (
+      {paginatedMinifigsList.map((minifig) => (
         <Grid item xs={6} sm={4} md={3} lg={2} key={minifig.id}>
           {/* <Minifig {...minifig} /> */}
           {minifig.id}
         </Grid>
       ))}
       <Grid item xs={12}>
-        Pagination
+        <MinifigsPagination />
       </Grid>
     </>
   );

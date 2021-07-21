@@ -1,14 +1,14 @@
 import React from "react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import { render, screen } from "utils/test";
+import { mockedMinifigsList, render, screen } from "utils/test";
 import Minifigs from "./Minifigs";
 
 export const handlers = [
   rest.get(
     `${process.env.REACT_APP_API_BASEURL}/minifigs.json`,
     (_req, res, ctx) => {
-      return res(ctx.json([{ id: "sw0001" }]), ctx.delay(150));
+      return res(ctx.json(mockedMinifigsList), ctx.delay(150));
     }
   ),
 ];
@@ -27,10 +27,10 @@ afterAll(() => server.close());
 test("fetches & receives the minifigs at mount", async () => {
   render(<Minifigs />);
 
-  // should show no user initially, and not be fetching a user
+  // should show no minifigs initially, and not be fetching a minifigs
   expect(screen.getByText(/loading/i)).toBeInTheDocument();
 
-  // after some time, the user should be received
-  expect(await screen.findAllByText(/pagination/i)).toHaveLength(2);
+  // after some time, the minifigs should be received
+  expect(await screen.findAllByTestId("minifigs-pagination")).toHaveLength(2);
   expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
 });

@@ -20,3 +20,9 @@ export type MinifigsFilters = {
   characName: string | null;
   tag: string | null;
 }
+
+export type MinifigsPagination = {
+  activePage: number;
+  total: number;
+  nbPerPage: number;
+}
