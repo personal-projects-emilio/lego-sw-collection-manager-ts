@@ -44,9 +44,10 @@ export const minifigsSlice = createSlice({
   name: 'minifigs',
   initialState,
   reducers: {
-    setMinifigsFilters: (state, action: PayloadAction<MinifigsFilters>) => {
-      const filteredList = getFilteredMinifigsList(state.list, action.payload);
-      state.filters = action.payload;
+    setMinifigsFilters: (state, action: PayloadAction<Partial<MinifigsFilters>>) => {
+      const updatedFilter = { ...state.filters, ...action.payload }
+      const filteredList = getFilteredMinifigsList(state.list, updatedFilter);
+      state.filters = updatedFilter;
       state.pagination.activePage = 0;
       state.pagination.total = filteredList?.length || 0;
     },

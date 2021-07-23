@@ -19,20 +19,21 @@ export const RadioButtons: React.FC<RadioButtonsProps> = ({
   value,
   label,
   changeHandler,
-  config,
+  options,
+  row,
 }) => {
   const classes = useStyles();
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{label}</FormLabel>
       <RadioGroup
-        row={!!config.row}
+        row={!!row}
         aria-label={label}
         name={label}
         value={value}
         onChange={(_e, value) => changeHandler(value)}
       >
-        {config.options.map((option: any) => (
+        {options.map((option) => (
           <FormControlLabel
             className={classes.label}
             key={option}
