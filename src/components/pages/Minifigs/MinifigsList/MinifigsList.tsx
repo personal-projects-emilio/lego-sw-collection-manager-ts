@@ -8,7 +8,8 @@ import {
   selectPaginatedMinifigsList,
   resetMinifigsFilters,
 } from "store/minifigs";
-import MinifigsPagination from "../MinifigsPagination";
+import MinifigsPagination from "./MinifigsPagination";
+import MinifigCard from "./MinifigCard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,8 +54,7 @@ export const MinifigsList = () => {
       </Grid>
       {paginatedMinifigsList.map((minifig) => (
         <Grid item xs={6} sm={4} md={3} lg={2} key={minifig.id}>
-          {/* <Minifig {...minifig} /> */}
-          {minifig.id}
+          <MinifigCard {...minifig} />
         </Grid>
       ))}
       <Grid item xs={12}>

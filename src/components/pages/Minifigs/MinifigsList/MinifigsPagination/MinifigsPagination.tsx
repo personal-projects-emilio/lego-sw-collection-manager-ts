@@ -7,8 +7,6 @@ import {
   setMinifigsPagination,
 } from "store/minifigs";
 
-export interface MinifigsPaginationProps {}
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     spacer: {
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const MinifigsPagination: React.FC<MinifigsPaginationProps> = () => {
+export const MinifigsPagination: React.FC = () => {
   const pagination = useAppSelector(selectMinifigsPagination);
   const dispatch = useAppDispatch();
   const { activePage, nbPerPage, total } = pagination;

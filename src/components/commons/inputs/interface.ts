@@ -1,14 +1,4 @@
-export type InputType = 'radiobuttons' | 'autocomplete'// | 'switch' | 'textflied'
-
-export interface InputsProps<T extends InputType> {
-  type: T;
-  // value: Value[T];
-  // config: Config<T>;
-  // changeHandler: ChangeHandler<T>;
-  value: any;
-  config: any;
-  changeHandler: any;
-  label: string;
+export type DefaultInputsProps = {
   placeholder?: string;
   valid?: boolean;
   touched?: boolean;
@@ -16,31 +6,51 @@ export interface InputsProps<T extends InputType> {
   muiProps?: {};
 }
 
-export type ChangeHandler<T> = T extends 'radiobuttons' ? (value: string) => void : (value: any) => void
-
-
-// export type Value = {
-//   radiobuttons: string;
-//   autocomplete: string | string[];
-// }
-// export type Value<T extends InputType> =
-//   T extends 'radiobuttons' ? string
-//   : T extends 'autocomplete' ? string | string[]
-//   : any
-
-// export type Config<T extends InputType> =
-//   T extends 'radiobuttons' ? {
-//     row?: boolean;
-//     options: string[];
-// } : T extends 'autocomplete' ? {
-//   multiple?: boolean
-//   options: {
-//     label: string;
-//     value: string;
-//   }
-// } : never;
-
-export type RadioButtonsProps = Omit<InputsProps<"radiobuttons">, "type">;
-
-export type AutoCompleteProps = Omit<InputsProps<"autocomplete">, "type">;
 export type AutoCompleteOption = Record<"label" | "value", string>;
+export type AutoCompleteInputsProps = {
+  type: 'autocomplete';
+  value: string | null;
+  changeHandler: (newValue: string | null) => void;
+  label: string;
+  placeholder?: string;
+  options: AutoCompleteOption[];
+  multiple?: never;
+}
+export type AutoCompleteMultipleInputsProps = {
+  type: 'autocomplete';
+  value: string[] | null;
+  changeHandler: (newValue: string[] | null) => void;
+  label: string;
+  placeholder?: string;
+  options: AutoCompleteOption[];
+  multiple: true;
+}
+
+export type AutoCompleteProps = DefaultInputsProps & (AutoCompleteInputsProps | AutoCompleteMultipleInputsProps);
+
+export type RadioButtonsInputsProps = {
+  type: 'radiobuttons';
+  value: string;
+  changeHandler: (newValue: string) => void;
+  label: string;
+  placeholder?: never;
+  row?: boolean;
+  options: string[]
+}
+export type RadioButtonsProps = DefaultInputsProps & RadioButtonsInputsProps;
+
+export type SwitchInputsProps = {
+  type: 'switch';
+  value: boolean;
+  changeHandler: (newValue: boolean) => void;
+  label?: string;
+  placeholder?: never;
+  config?: never;
+}
+export type SwitchProps = DefaultInputsProps & SwitchInputsProps;
+
+export type InputsProps = DefaultInputsProps & (
+  AutoCompleteInputsProps |
+  AutoCompleteMultipleInputsProps |
+  RadioButtonsInputsProps |
+  SwitchInputsProps)

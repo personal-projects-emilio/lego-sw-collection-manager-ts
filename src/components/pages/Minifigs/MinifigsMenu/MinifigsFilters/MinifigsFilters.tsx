@@ -38,13 +38,15 @@ export const MinifigsFilters: React.FC = () => {
           label="Show"
           type="radiobuttons"
           value={filters.show}
-          changeHandler={(newValue: "all" | "owned" | "missing") =>
-            dispatch(setMinifigsFilters({ ...filters, show: newValue }))
+          changeHandler={(newValue) =>
+            dispatch(
+              setMinifigsFilters({
+                show: newValue as "all" | "owned" | "missing",
+              })
+            )
           }
-          config={{
-            row: true,
-            options: ["all", "owned", "missing"],
-          }}
+          row
+          options={["all", "owned", "missing"]}
         />
       </Grid>
       <Grid item>
@@ -52,13 +54,11 @@ export const MinifigsFilters: React.FC = () => {
           label="Character Name"
           type="autocomplete"
           value={filters.characName}
-          changeHandler={(newValue: string | null) =>
-            dispatch(setMinifigsFilters({ ...filters, characName: newValue }))
+          changeHandler={(newValue) =>
+            dispatch(setMinifigsFilters({ characName: newValue }))
           }
           placeholder="Filter by character name"
-          config={{
-            options: characNamesOptions,
-          }}
+          options={characNamesOptions}
         />
       </Grid>
       <Grid item>
@@ -66,13 +66,11 @@ export const MinifigsFilters: React.FC = () => {
           label="Tag"
           type="autocomplete"
           value={filters.tag}
-          changeHandler={(newValue: string | null) =>
-            dispatch(setMinifigsFilters({ ...filters, tag: newValue }))
+          changeHandler={(newValue) =>
+            dispatch(setMinifigsFilters({ tag: newValue }))
           }
           placeholder="Filter by tag"
-          config={{
-            options: tagsOptions,
-          }}
+          options={tagsOptions}
         />
       </Grid>
     </Grid>
