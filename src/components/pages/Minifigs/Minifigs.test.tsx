@@ -1,7 +1,7 @@
 import React from "react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import { mockedMinifigsList, render, screen } from "utils/test";
+import { fireEvent, mockedMinifigsList, render, screen } from "utils/test";
 import Minifigs from "./Minifigs";
 
 export const handlers = [
@@ -33,4 +33,21 @@ test("fetches & receives the minifigs at mount", async () => {
   // after some time, the minifigs should be received
   expect(await screen.findAllByTestId("minifigs-pagination")).toHaveLength(2);
   expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
+});
+
+test("reset the filters", async () => {
+  render(<Minifigs />);
+
+  // should show no minifigs initially, and not be fetching a minifigs
+  expect(screen.getByText(/loading/i)).toBeInTheDocument();
+
+  // after some time, the minifigs should be received
+  expect(await screen.findAllByTestId("minifigs-pagination")).toHaveLength(2);
+  expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
+
+  // Reset filters
+  expect(screen.queryByText("Reset filters")).not.toBeInTheDocument();
+  fireEvent.click(screen.getByDisplayValue("missing"));
+  fireEvent.click(screen.getByText("Reset filters"));
+  expect(screen.queryByText("Reset filters")).not.toBeInTheDocument();
 });

@@ -86,8 +86,8 @@ export const mockedMinifigsList: MinifigsList = [
   },
 ];
 
-export const generateMockedMinifigsList = (number: number): MinifigsList =>
-  new Array(number).map((_el, i) => ({
+export const generateMockedMinifigsList = (length: number): MinifigsList =>
+  Array.from({ length }, (_el, i) => ({
     id: `sw${i}`,
     characterName: `test${i}`,
     name: "test",
