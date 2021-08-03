@@ -1,56 +1,66 @@
 export type DefaultInputsProps = {
   placeholder?: string;
-  valid?: boolean;
-  touched?: boolean;
-  errorText?: string;
   muiProps?: {};
+  onChange?: () => void;
 }
 
-export type AutoCompleteOption = Record<"label" | "value", string>;
+export type AutoCompleteOption = {
+  label: string;
+  value: string;
+  added?: boolean;
+}
 export type AutoCompleteInputsProps = {
   type: 'autocomplete';
   value: string | null;
-  changeHandler: (newValue: string | null) => void;
   label: string;
   placeholder?: string;
   options: AutoCompleteOption[];
-  multiple?: never;
+  multiple?: false;
+  creatable?: boolean;
 }
 export type AutoCompleteMultipleInputsProps = {
   type: 'autocomplete';
   value: string[] | null;
-  changeHandler: (newValue: string[] | null) => void;
   label: string;
   placeholder?: string;
   options: AutoCompleteOption[];
-  multiple: true;
+  multiple?: true;
+  creatable?: boolean;
 }
 
-export type AutoCompleteProps = DefaultInputsProps & (AutoCompleteInputsProps | AutoCompleteMultipleInputsProps);
+export type AutoCompleteProps = DefaultInputsProps & (Omit<AutoCompleteInputsProps, 'type'> | Omit<AutoCompleteMultipleInputsProps, 'type'>);
 
 export type RadioButtonsInputsProps = {
   type: 'radiobuttons';
   value: string;
-  changeHandler: (newValue: string) => void;
   label: string;
   placeholder?: never;
   row?: boolean;
   options: string[]
 }
-export type RadioButtonsProps = DefaultInputsProps & RadioButtonsInputsProps;
+export type RadioButtonsProps = DefaultInputsProps & Omit<RadioButtonsInputsProps, 'type'>;
 
 export type SwitchInputsProps = {
   type: 'switch';
   value: boolean;
-  changeHandler: (newValue: boolean) => void;
   label?: string;
   placeholder?: never;
   config?: never;
 }
-export type SwitchProps = DefaultInputsProps & SwitchInputsProps;
+export type SwitchProps = DefaultInputsProps & Omit<SwitchInputsProps, 'type'>;
+
+export type TextFieldInputsProps = {
+  type: "textfield";
+  value: string;
+  label: string;
+  placeholder?: string;
+}
+
+export type TextFieldProps = DefaultInputsProps & Omit<TextFieldInputsProps, 'type'>;
 
 export type InputsProps = DefaultInputsProps & (
   AutoCompleteInputsProps |
   AutoCompleteMultipleInputsProps |
   RadioButtonsInputsProps |
-  SwitchInputsProps)
+  SwitchInputsProps |
+  TextFieldInputsProps)

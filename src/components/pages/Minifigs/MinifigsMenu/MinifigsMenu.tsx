@@ -1,8 +1,9 @@
-import * as React from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import MinifigsFilters from "./MinifigsFilters";
+import MinifigsMisce from "./MinifigsMisce";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,13 +18,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const MinifigsMenu: React.FC = () => {
   const classes = useStyles();
+
   return (
     <Grid container>
       <Grid item xs={12} md={6}>
         <Paper className={classes.paper}>
-          {/* <MinifigsMisce /> */}
-          Minifigs Miscellanous info (total, percentage owned, add minifig, set
-          possession to all)
+          <MinifigsMisce />
         </Paper>
       </Grid>
       <Grid item xs={12} md={6}>

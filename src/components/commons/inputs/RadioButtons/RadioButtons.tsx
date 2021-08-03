@@ -15,36 +15,34 @@ const useStyles = makeStyles((_theme: Theme) =>
   })
 );
 
-export const RadioButtons: React.FC<RadioButtonsProps> = ({
-  value,
-  label,
-  changeHandler,
-  options,
-  row,
-}) => {
-  const classes = useStyles();
-  return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">{label}</FormLabel>
-      <RadioGroup
-        row={!!row}
-        aria-label={label}
-        name={label}
-        value={value}
-        onChange={(_e, value) => changeHandler(value)}
-      >
-        {options.map((option) => (
-          <FormControlLabel
-            className={classes.label}
-            key={option}
-            value={option}
-            control={<Radio />}
-            label={option}
-          />
-        ))}
-      </RadioGroup>
-    </FormControl>
-  );
-};
+export const RadioButtons = React.forwardRef<any, RadioButtonsProps>(
+  ({ value, label, options, row, ...props }, ref) => {
+    const classes = useStyles();
+    return (
+      <FormControl component="fieldset">
+        <FormLabel component="legend">{label}</FormLabel>
+        <RadioGroup
+          ref={ref}
+          row={!!row}
+          aria-label={label}
+          name={label}
+          value={value}
+          {...props}
+          // onChange={(_e, value) => changeHandler(value)}
+        >
+          {options.map((option) => (
+            <FormControlLabel
+              className={classes.label}
+              key={option}
+              value={option}
+              control={<Radio />}
+              label={option}
+            />
+          ))}
+        </RadioGroup>
+      </FormControl>
+    );
+  }
+);
 
 export default RadioButtons;

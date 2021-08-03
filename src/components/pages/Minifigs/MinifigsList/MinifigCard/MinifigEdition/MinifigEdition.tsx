@@ -7,6 +7,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Minifig } from "interfaces/minifigs";
 import Inputs from "components/commons/inputs";
+import MinifigFormModal from "components/commons/MinifigFormModal/MinifigFormModal";
+import { useToggle } from "hooks";
 
 export type MinifigEditionProps = Minifig;
 
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
   const { possessed } = props;
   const classes = useStyles();
-
+  const [isEditModalOpen, toggleEditModalOpen] = useToggle();
   return (
     <Grid
       container
@@ -32,15 +34,20 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
       <Tooltip title="Switch possession" aria-label="Switch possession">
         <span>
           {/* TODO: Manage switch possession action */}
-          <Inputs type="switch" value={possessed} changeHandler={() => {}} />
+          <Inputs type="switch" value={possessed} />
         </span>
       </Tooltip>
-      {/* TODO: Manage edit modal */}
       <Tooltip title="Edit" aria-label="Edit">
-        <IconButton>
+        <IconButton onClick={() => toggleEditModalOpen()}>
           <EditIcon />
         </IconButton>
       </Tooltip>
+      {isEditModalOpen && (
+        <MinifigFormModal
+          handleClose={() => toggleEditModalOpen()}
+          editMinifig={props}
+        />
+      )}
       {/* TODO: Manage delete modal */}
       <Tooltip title="Delete" aria-label="Delete">
         <IconButton>
