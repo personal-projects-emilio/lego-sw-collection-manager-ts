@@ -1,5 +1,6 @@
 export type DefaultInputsProps = {
   placeholder?: string;
+  id?: string;
   muiProps?: {};
   onChange?: () => void;
 }

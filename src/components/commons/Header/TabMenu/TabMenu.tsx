@@ -8,11 +8,19 @@ const a11yProps = (index: any) => ({
   "aria-controls": `simple-tabpanel-${index}`,
 });
 
-export const TabMenu = () => {
-  let location = useLocation();
+interface TabMenuProps {
+  isAuthenticate: boolean;
+  logoutHandler: () => void;
+}
+
+export const TabMenu: React.FC<TabMenuProps> = ({
+  isAuthenticate,
+  logoutHandler,
+}) => {
+  const { pathname } = useLocation();
 
   return (
-    <Tabs value={location.pathname} aria-label="Tab menu">
+    <Tabs value={pathname} aria-label="Tab menu">
       <Tab
         data-testid="minifigs"
         label="Minifigs"
@@ -21,13 +29,17 @@ export const TabMenu = () => {
         to="/minifigs"
         {...a11yProps(0)}
       />
-      <Tab
-        label="Authentication"
-        component={Link}
-        to="/auth"
-        value="/auth"
-        {...a11yProps(1)}
-      />
+      {isAuthenticate ? (
+        <Tab label="Logout" onClick={logoutHandler} />
+      ) : (
+        <Tab
+          label="Authentication"
+          component={Link}
+          to="/auth"
+          value="/auth"
+          {...a11yProps(1)}
+        />
+      )}
     </Tabs>
   );
 };
