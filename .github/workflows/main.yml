@@ -17,6 +17,7 @@ jobs:
 
     env:
       REACT_APP_API_BASEURL: ${{ secrets.REACT_APP_API_BASEURL }}
+      REACT_APP_AUTH_BASEURL: ${{ secrets.REACT_APP_AUTH_BASEURL}}
 
     steps:
       - name: Checkout repository

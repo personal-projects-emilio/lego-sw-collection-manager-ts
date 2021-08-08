@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -15,7 +15,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const BurgerMenu = () => {
+interface BurgerMenuProps {
+  isAuthenticate: boolean;
+  logoutHandler: () => void;
+}
+
+export const BurgerMenu: React.FC<BurgerMenuProps> = ({
+  isAuthenticate,
+  logoutHandler,
+}) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -24,9 +32,12 @@ export const BurgerMenu = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClose = useCallback(() => setAnchorEl(null), []);
+
+  const handleLogout = useCallback(() => {
+    handleClose();
+    logoutHandler();
+  }, [logoutHandler, handleClose]);
 
   return (
     <>
@@ -64,15 +75,19 @@ export const BurgerMenu = () => {
         >
           Minifigs
         </MenuItem>
-        <MenuItem
-          data-testid="auth"
-          component={NavLink}
-          to="/auth"
-          activeClassName={classes.activeLink}
-          onClick={handleClose}
-        >
-          Authentication
-        </MenuItem>
+        {isAuthenticate ? (
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        ) : (
+          <MenuItem
+            data-testid="auth"
+            component={NavLink}
+            to="/auth"
+            activeClassName={classes.activeLink}
+            onClick={handleClose}
+          >
+            Authentication
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

@@ -1,8 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
+import history from "appHistory";
 
 export const RouterProvider: React.FC = ({ children }) => (
-  <Router>{children}</Router>
+  <Router history={history}>{children}</Router>
 );
 
 export default RouterProvider;

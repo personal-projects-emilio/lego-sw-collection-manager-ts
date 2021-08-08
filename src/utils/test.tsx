@@ -1,9 +1,23 @@
 import React, { ReactElement } from "react";
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
 import { Provider } from "react-redux";
+import mediaQuery from "css-mediaquery";
 import { RootState, initStore } from "store";
+import { LocalStorageMock } from "@react-mock/localstorage";
 import { BrowserRouter } from "react-router-dom";
 import { MinifigsList } from "interfaces/minifigs";
+
+// https://material-ui.com/components/use-media-query/#testing
+export const createMatchMedia =
+  (width: any) =>
+  (query: any): any => ({
+    matches: mediaQuery.match(query, { width }),
+    addListener: () => {},
+    removeListener: () => {},
+  });
+beforeAll(() => {
+  window.matchMedia = createMatchMedia(window.innerWidth);
+});
 
 export interface WrapperProps {
   children: ReactElement;
@@ -11,6 +25,7 @@ export interface WrapperProps {
 interface ExtendedRenderOptions extends RenderOptions {
   preloadedState?: Partial<RootState>;
   route?: string;
+  localStorageMocked?: {};
 }
 
 const render = (
@@ -20,7 +35,7 @@ const render = (
   window.history.pushState(
     {},
     "Test page",
-    extendedRenderOptions?.route || "/"
+    extendedRenderOptions?.route || "/minifigs"
   );
 
   const Wrapper: React.FC = ({ children }) => {
@@ -30,7 +45,13 @@ const render = (
           extendedRenderOptions?.preloadedState || initialStoreMocked
         )}
       >
-        <BrowserRouter>{children}</BrowserRouter>
+        <BrowserRouter>
+          <LocalStorageMock
+            items={extendedRenderOptions?.localStorageMocked || {}}
+          >
+            {children}
+          </LocalStorageMock>
+        </BrowserRouter>
       </Provider>
     );
   };
@@ -52,6 +73,12 @@ export const initialStoreMocked: RootState = {
       activePage: 0,
       nbPerPage: 50,
     },
+  },
+  auth: {
+    token: null,
+    userId: null,
+    error: null,
+    loading: false,
   },
 };
 

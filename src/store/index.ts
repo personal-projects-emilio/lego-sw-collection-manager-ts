@@ -1,14 +1,17 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import minifigsReducer from './minifigs';
+import authReducer, { authMiddleware } from './auth';
 
 export const reducer = combineReducers({
-  minifigs: minifigsReducer
+  minifigs: minifigsReducer,
+  auth: authReducer
 })
 
 // Helper function used for testing
 export const initStore = (preloadedState?: Partial<RootState>) => configureStore({
   reducer,
-  preloadedState
+  preloadedState,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authMiddleware),
 })
 
 export const store = initStore();
