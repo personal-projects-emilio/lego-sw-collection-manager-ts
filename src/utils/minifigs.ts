@@ -1,3 +1,4 @@
+import api from "api";
 import { MinifigsFilters, MinifigsList, TagOrCharacNameList } from "interfaces/minifigs";
 
 
@@ -60,3 +61,7 @@ export const getFilteredMinifigsList = (list: MinifigsList | null, filters: Mini
   const hasFilterCharacName = characName ? characName === characterName : true;
   return showFiltered && hasFilterCharacName && hasFilterTag
 })
+
+export const restUpdateMinifigsList = async (updatedMinifigsList: MinifigsList, token: string) => await api.put(`minifigs.json?auth=${token}`, {
+  json: updatedMinifigsList,
+}).json<MinifigsList>();

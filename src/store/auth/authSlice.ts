@@ -5,8 +5,8 @@ import history from "appHistory";
 interface AuthState {
   token: null | string;
   userId: null | string;
-  error: null | string;
-  loading: boolean;
+  error: any;
+  isLoading: boolean;
 }
 
 interface AuthResponse {
@@ -28,13 +28,13 @@ interface AuthPayload {
 type AutoSignIn = {
   token: string;
   userId: string;
-} | never;
+};
 
 const initialState: AuthState = {
   token: null,
   userId: null,
   error: null,
-  loading: false,
+  isLoading: false,
 }
 
 
@@ -75,12 +75,16 @@ export const authSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(authenticate.pending, (state) => {
-      state.loading = true;
+      state.isLoading = true;
     })
     builder.addCase(authenticate.fulfilled, (state, { payload }) => {
-      state.loading = false;
+      state.isLoading = false;
       state.token = payload.idToken;
       state.userId = payload.localId;
+    })
+    builder.addCase(authenticate.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
     })
   }
 })

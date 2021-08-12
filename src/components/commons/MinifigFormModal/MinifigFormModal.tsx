@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,20 +7,29 @@ import Grid from "@material-ui/core/Grid";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Minifig } from "interfaces/minifigs";
 import Inputs from "../inputs";
-import { useAppSelector } from "hooks/store";
-import { selectMinifigsList, selectTagsAndCharacNames } from "store/minifigs";
+import { useAppDispatch, useAppSelector } from "hooks/store";
+import {
+  addMinifig,
+  editMinifig,
+  selectMinifigsIsLoading,
+  selectMinifigsList,
+  selectTagsAndCharacNames,
+} from "store/minifigs";
+import Button from "../Button";
 
 export interface MinifigFormModalProps {
   handleClose: () => void;
-  editMinifig?: Minifig;
+  editMinifigData?: Minifig;
 }
 
 export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
   handleClose,
-  editMinifig,
+  editMinifigData,
 }) => {
   const { tags, characNames } = useAppSelector(selectTagsAndCharacNames);
   const minifigsList = useAppSelector(selectMinifigsList);
+  const isLoading = useAppSelector(selectMinifigsIsLoading);
+  const dispatch = useAppDispatch();
   const {
     control,
     reset,
@@ -29,7 +37,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
     handleSubmit,
     formState: { isValid },
   } = useForm<Minifig>({
-    defaultValues: editMinifig || {
+    defaultValues: editMinifigData || {
       id: "",
       name: "",
       characterName: "",
@@ -68,7 +76,12 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
     unregister();
   };
 
-  const onSubmit: SubmitHandler<Minifig> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Minifig> = (data) => {
+    if (editMinifigData) {
+      return dispatch(editMinifig(data));
+    }
+    return dispatch(addMinifig(data));
+  };
 
   return (
     <Dialog
@@ -80,7 +93,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle id="minifig-form-dialog">
-          {editMinifig ? `Edit ${editMinifig.id}` : "Add a minifig"}
+          {editMinifigData ? `Edit ${editMinifigData.id}` : "Add a minifig"}
         </DialogTitle>
         <DialogContent>
           <Grid container direction="column" spacing={2}>
@@ -92,12 +105,13 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
                   required: "This field is required",
                   pattern: {
                     value: /^sw[0-9]{4}[abcds]?$/,
-                    message: "This need to be a minifig reference",
+                    message:
+                      "This need to be a minifig reference (/^sw[0-9]{4}[abcds]?$/)",
                   },
                   validate: (value) => {
                     if (
                       minifigsListIds.includes(value) &&
-                      value !== editMinifig?.id
+                      value !== editMinifigData?.id
                     ) {
                       return "This minifig already exists";
                     }
@@ -112,7 +126,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
                       placeholder="Minifig id (ex: sw0001a)"
                       type="textfield"
                       muiProps={{
-                        disabled: !!editMinifig,
+                        disabled: !!editMinifigData,
                         error: fieldState.invalid,
                         helperText: fieldState.error?.message,
                         required: true,
@@ -183,7 +197,6 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
                     type="autocomplete"
                     creatable
                     options={tagsOptions}
-                    //@ts-ignore
                     multiple
                     muiProps={{
                       fullWidth: true,
@@ -204,7 +217,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
+          <Button onClick={onClose} color="primary" disabled={isLoading}>
             Cancel
           </Button>
           <Button
@@ -212,6 +225,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
             color="primary"
             variant="contained"
             disabled={!isValid}
+            isLoading={isLoading}
           >
             Submit
           </Button>

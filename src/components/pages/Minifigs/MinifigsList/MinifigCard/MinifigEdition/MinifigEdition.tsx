@@ -8,7 +8,12 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Minifig } from "interfaces/minifigs";
 import Inputs from "components/commons/inputs";
 import MinifigFormModal from "components/commons/MinifigFormModal/MinifigFormModal";
-import { useToggle } from "hooks";
+import { useAppDispatch, useAppSelector, useToggle } from "hooks";
+import {
+  deleteMinifig,
+  selectMinifigsIsLoading,
+  toggleMinifigOwned,
+} from "store/minifigs";
 
 export type MinifigEditionProps = Minifig;
 
@@ -21,9 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
-  const { possessed } = props;
+  const { possessed, id } = props;
   const classes = useStyles();
   const [isEditModalOpen, toggleEditModalOpen] = useToggle();
+  const isLoading = useAppSelector(selectMinifigsIsLoading);
+  const dipsatch = useAppDispatch();
   return (
     <Grid
       container
@@ -33,8 +40,12 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
     >
       <Tooltip title="Switch possession" aria-label="Switch possession">
         <span>
-          {/* TODO: Manage switch possession action */}
-          <Inputs type="switch" value={possessed} />
+          <Inputs
+            type="switch"
+            value={possessed}
+            onChange={() => dipsatch(toggleMinifigOwned(id))}
+            muiProps={{ disabled: isLoading }}
+          />
         </span>
       </Tooltip>
       <Tooltip title="Edit" aria-label="Edit">
@@ -45,12 +56,15 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
       {isEditModalOpen && (
         <MinifigFormModal
           handleClose={() => toggleEditModalOpen()}
-          editMinifig={props}
+          editMinifigData={props}
         />
       )}
       {/* TODO: Manage delete modal */}
       <Tooltip title="Delete" aria-label="Delete">
-        <IconButton>
+        <IconButton
+          disabled={isLoading}
+          onClick={() => dipsatch(deleteMinifig(id))}
+        >
           <DeleteIcon />
         </IconButton>
       </Tooltip>

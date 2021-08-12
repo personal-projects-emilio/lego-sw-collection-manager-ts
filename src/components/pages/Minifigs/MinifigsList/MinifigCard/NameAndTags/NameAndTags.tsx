@@ -71,7 +71,9 @@ export const NameAndTags: React.FC<NameAndTagsProps> = ({
             : undefined
         }
       />
-      {tags && tags.length && <Divider variant="fullWidth" />}
+      {Array.isArray(tags) && tags.length > 0 && (
+        <Divider variant="fullWidth" />
+      )}
       {tags?.map((tag) => (
         <Chip
           key={`${characterName}-${tag}`}
