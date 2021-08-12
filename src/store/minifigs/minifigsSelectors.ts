@@ -10,6 +10,8 @@ export const selectMinifigsFilters = (state: RootState) => state.minifigs.filter
 
 export const selectMinifigsPagination = (state: RootState) => state.minifigs.pagination;
 
+export const selectMinifigsIsLoading = (state: RootState) => state.minifigs.isLoading;
+
 export const selectPaginatedMinifigsList = (state: RootState) => {
   const { nbPerPage, activePage } = state.minifigs.pagination;
   const filteredList = getFilteredMinifigsList(state.minifigs.list, state.minifigs.filters);

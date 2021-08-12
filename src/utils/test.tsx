@@ -63,6 +63,8 @@ export const initialStoreMocked: RootState = {
     list: null,
     tags: null,
     characNames: null,
+    error: null,
+    isLoading: false,
     filters: {
       show: "all",
       tag: null,
@@ -78,7 +80,7 @@ export const initialStoreMocked: RootState = {
     token: null,
     userId: null,
     error: null,
-    loading: false,
+    isLoading: false,
   },
 };
 

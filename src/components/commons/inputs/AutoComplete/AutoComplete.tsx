@@ -32,7 +32,7 @@ export const AutoComplete = React.forwardRef<any, AutoCompleteProps>(
       if (Array.isArray(value) && multiple && !creatable) {
         newValue = options.filter((option) => value.includes(option.value));
       }
-      if (Array.isArray(value) && multiple && !!creatable) {
+      if (Array.isArray(value) && multiple && creatable) {
         newValue = value.map((value) => ({
           value,
           label: value,
@@ -47,6 +47,9 @@ export const AutoComplete = React.forwardRef<any, AutoCompleteProps>(
             value,
             added: true,
           };
+        }
+        if (newValue === undefined && !creatable) {
+          newValue = null;
         }
       }
       setOptionValue(newValue);
@@ -74,6 +77,7 @@ export const AutoComplete = React.forwardRef<any, AutoCompleteProps>(
         autoHighlight
         freeSolo={!!creatable}
         selectOnFocus={!!creatable}
+        openOnFocus
         clearOnBlur={!!creatable}
         handleHomeEndKeys={!!creatable}
         value={optionValue}
@@ -82,7 +86,7 @@ export const AutoComplete = React.forwardRef<any, AutoCompleteProps>(
           // Suggest the creation of a new value only if it does not exist in the options or newly created values
           if (
             params.inputValue !== "" &&
-            !!creatable &&
+            creatable &&
             ((Array.isArray(optionValue) &&
               !optionValue.find(
                 (option) => option.value === params.inputValue

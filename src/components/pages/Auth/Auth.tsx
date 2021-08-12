@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type AuthInputs = {
+export type AuthInputs = {
   email: string;
   password: string;
 };
