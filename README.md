@@ -1,4 +1,4 @@
-[![build](https://github.com/personal-projects-emilio/lego-sw-collection-manager-ts/actions/workflows/main.yml/badge.svg)](https://github.com/personal-projects-emilio/lego-sw-collection-manager-ts/actions/workflows/main.yml)
+[![build](https://github.com/personal-projects-emilio/lego-sw-collection-manager-ts/actions/workflows/build.yml/badge.svg)](https://github.com/personal-projects-emilio/lego-sw-collection-manager-ts/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/personal-projects-emilio/lego-sw-collection-manager-ts/branch/main/graph/badge.svg?token=RZ5YLKOXJP)](https://codecov.io/gh/personal-projects-emilio/lego-sw-collection-manager-ts)
 
 # Getting Started with Create React App
