@@ -32,10 +32,23 @@ test("fail toggle owned minifig because of store error", async () => {
   await waitFor(() => expect(deleteButton).toHaveProperty("disabled", false));
 });
 
+test("close delete minifig modal", () => {
+  render(<MinifigEdition {...minifig} />);
+  expect(screen.queryByText("Confirm")).not.toBeInTheDocument();
+  fireEvent.click(screen.getByTitle("Delete"));
+  expect(screen.getByText("Confirm")).toBeInTheDocument();
+  fireEvent.click(screen.getByText("Cancel"));
+  expect(screen.queryByText("Confirm")).not.toBeInTheDocument();
+  fireEvent.click(screen.getByTitle("Delete"));
+  fireEvent.keyDown(screen.getByText(/Are you sure/i), { key: "Escape" });
+  expect(screen.queryByText(/Are you sure/i)).not.toBeInTheDocument();
+});
+
 test("fail delete minifig because of store error", async () => {
   render(<MinifigEdition {...minifig} />);
   const deleteButton = screen.getByTitle("Delete");
   fireEvent.click(deleteButton);
+  fireEvent.click(screen.getByText("Confirm"));
   await waitFor(() => expect(deleteButton).toHaveProperty("disabled", true));
   await waitFor(() => expect(deleteButton).toHaveProperty("disabled", false));
 });

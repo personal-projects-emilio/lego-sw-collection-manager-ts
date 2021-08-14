@@ -99,6 +99,7 @@ describe("MinifigsList", () => {
     render(<MinifigsList />, { preloadedState });
     expect(screen.queryByText(mockedMinifigsList[0].id)).not.toBeNull();
     fireEvent.click(screen.getAllByTitle("Delete")[0]);
+    fireEvent.click(screen.getByText("Confirm"));
     await waitFor(() =>
       expect(screen.queryByText(mockedMinifigsList[0].id)).toBeNull()
     );
@@ -113,6 +114,7 @@ describe("MinifigsList", () => {
     render(<MinifigsList />, { preloadedState });
     expect(screen.queryByText(mockedMinifigsList[0].id)).not.toBeNull();
     fireEvent.click(screen.getAllByTitle("Delete")[0]);
+    fireEvent.click(screen.getByText("Confirm"));
     await waitFor(() =>
       expect(screen.queryByText(mockedMinifigsList[0].id)).toBeNull()
     );
@@ -128,6 +130,7 @@ describe("MinifigsList", () => {
     const deleteButton = screen.getAllByTitle("Delete")[0];
     expect(screen.queryByText(mockedMinifigsList[0].id)).not.toBeNull();
     fireEvent.click(deleteButton);
+    fireEvent.click(screen.getByText("Confirm"));
     await waitFor(() => expect(deleteButton).toHaveProperty("disabled", true));
     await waitFor(() => expect(deleteButton).toHaveProperty("disabled", false));
     expect(screen.queryByText(mockedMinifigsList[0].id)).not.toBeNull();
