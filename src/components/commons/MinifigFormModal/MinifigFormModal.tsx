@@ -224,6 +224,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
             type="submit"
             color="primary"
             variant="contained"
+            aria-label="Submit"
             disabled={!isValid}
             isLoading={isLoading}
           >

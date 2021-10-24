@@ -19,7 +19,7 @@ describe("MinifigFormModal", () => {
 
   const handlers = [
     rest.put<MinifigsList>(
-      `${process.env.REACT_APP_API_BASEURL as string}/*`,
+      `${process.env.REACT_APP_API_BASEURL}/*`,
       (req, res, ctx) => {
         if (req.body[0].name !== "Error") {
           return res(ctx.json([{}]), ctx.delay(50));
@@ -91,7 +91,7 @@ describe("MinifigFormModal", () => {
     ) as HTMLInputElement;
     expect(nameInputElement.value).toBe(mockedMinifigsList[0].name);
     fireEvent.input(nameInputElement, { target: { value: "New name" } });
-    fireEvent.submit(screen.getAllByRole("button")[4]);
+    fireEvent.submit(screen.getByLabelText("Submit"));
     expect(await screen.findByRole("progressbar")).toBeInTheDocument();
     await waitFor(() => expect(screen.queryByRole("progressbar")).toBeNull());
   });
@@ -115,7 +115,7 @@ describe("MinifigFormModal", () => {
     ) as HTMLInputElement;
     expect(nameInputElement.value).toBe(mockedMinifigsList[0].name);
     fireEvent.input(nameInputElement, { target: { value: "New name" } });
-    fireEvent.submit(screen.getAllByRole("button")[4]);
+    fireEvent.submit(screen.getByLabelText("Submit"));
   });
 
   test("reject minifig edit because no minifigs in the store", () => {
@@ -136,7 +136,7 @@ describe("MinifigFormModal", () => {
     ) as HTMLInputElement;
     expect(nameInputElement.value).toBe(mockedMinifigsList[0].name);
     fireEvent.input(nameInputElement, { target: { value: "New name" } });
-    fireEvent.submit(screen.getAllByRole("button")[4]);
+    fireEvent.submit(screen.getByLabelText("Submit"));
   });
 
   test("reject minifig edit because of server error", async () => {
@@ -159,7 +159,7 @@ describe("MinifigFormModal", () => {
     ) as HTMLInputElement;
     expect(nameInputElement.value).toBe(mockedMinifigsList[0].name);
     fireEvent.input(nameInputElement, { target: { value: "Error" } });
-    fireEvent.submit(screen.getAllByRole("button")[4]);
+    fireEvent.submit(screen.getByLabelText("Submit"));
     expect(await screen.findByRole("progressbar")).toBeInTheDocument();
     await waitFor(() => expect(screen.queryByRole("progressbar")).toBeNull());
   });
@@ -186,7 +186,7 @@ describe("MinifigFormModal", () => {
       screen.getByPlaceholderText("Character name (ex: Battle Droid)")
     );
     fireEvent.click(screen.getByText("Boba Fett"));
-    fireEvent.submit(screen.getAllByRole("button")[3]);
+    fireEvent.submit(screen.getByLabelText("Submit"));
     expect(await screen.findByRole("progressbar")).toBeInTheDocument();
     await waitFor(() => expect(screen.queryByRole("progressbar")).toBeNull());
   });
@@ -212,7 +212,7 @@ describe("MinifigFormModal", () => {
       screen.getByPlaceholderText("Character name (ex: Battle Droid)")
     );
     fireEvent.click(screen.getByText("Boba Fett"));
-    fireEvent.submit(screen.getAllByRole("button")[3]);
+    fireEvent.submit(screen.getByLabelText("Submit"));
   });
 
   test("reject minifig add because no minifigs in the store", () => {
@@ -235,7 +235,7 @@ describe("MinifigFormModal", () => {
       screen.getByPlaceholderText("Character name (ex: Battle Droid)")
     );
     fireEvent.click(screen.getByText("Boba Fett"));
-    fireEvent.submit(screen.getAllByRole("button")[3]);
+    fireEvent.submit(screen.getByLabelText("Submit"));
   });
 
   test("reject minifig add because of server error", async () => {
@@ -260,7 +260,7 @@ describe("MinifigFormModal", () => {
       screen.getByPlaceholderText("Character name (ex: Battle Droid)")
     );
     fireEvent.click(screen.getByText("Boba Fett"));
-    fireEvent.submit(screen.getAllByRole("button")[3]);
+    fireEvent.submit(screen.getByLabelText("Submit"));
     expect(await screen.findByRole("progressbar")).toBeInTheDocument();
     await waitFor(() => expect(screen.queryByRole("progressbar")).toBeNull());
   });

@@ -33,12 +33,12 @@ const initialState: MinifigsState = {
   }
 }
 
-export const fetchMinifigs = createAsyncThunk('minifigs/fetchMinifigs',
+export const fetchMinifigs = createAsyncThunk<MinifigsList>('minifigs/fetchMinifigs',
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get('minifigs.json').json<MinifigsList>();
       return response;
-    } catch (err) {
+    } catch (err: any) {
       console.error('Unable to fetch minifigs', err);
       return rejectWithValue(err.message)
     }
@@ -63,7 +63,7 @@ export const toggleMinifigOwned = createAsyncThunk<string, string, { state: Root
     })
     return minifigId;
   }
-  catch (err) {
+  catch (err: any) {
     console.error('Unable to toggle minifig owned', err);
     return rejectWithValue(err.message)
   }
@@ -82,7 +82,7 @@ export const editMinifig = createAsyncThunk<MinifigsList, Minifig, { state: Root
   try {
     return await restUpdateMinifigsList(updatedMinifigsList, token);
   }
-  catch (err) {
+  catch (err: any) {
     console.error('Unable to edit the minifig', err);
     return rejectWithValue(err.message)
   }
@@ -100,7 +100,7 @@ export const addMinifig = createAsyncThunk<MinifigsList, Minifig, { state: RootS
   try {
     return await restUpdateMinifigsList(updatedMinifigsList, token);
   }
-  catch (err) {
+  catch (err: any) {
     console.error('Unable to add the minifig', err);
     return rejectWithValue(err.message)
 
@@ -121,7 +121,7 @@ export const deleteMinifig = createAsyncThunk<MinifigsList, string, { state: Roo
   try {
     return await restUpdateMinifigsList(updatedMinifigsList, token);
   }
-  catch (err) {
+  catch (err: any) {
     console.error('Unable to delete minifig', err);
     return rejectWithValue(err.message)
   }

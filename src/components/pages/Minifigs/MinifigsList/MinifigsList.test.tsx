@@ -16,7 +16,7 @@ import { MinifigsList as MinifigsListType } from "interfaces/minifigs";
 describe("MinifigsList", () => {
   const handlers = [
     rest.patch<{ possessed: boolean }>(
-      `${process.env.REACT_APP_API_BASEURL as string}/*`,
+      `${process.env.REACT_APP_API_BASEURL}/*`,
       (req, res, ctx) => {
         if (req.body.possessed) {
           return res(
@@ -37,7 +37,7 @@ describe("MinifigsList", () => {
       }
     ),
     rest.put<MinifigsListType>(
-      `${process.env.REACT_APP_API_BASEURL as string}/*`,
+      `${process.env.REACT_APP_API_BASEURL}/*`,
       (req, res, ctx) => {
         if (req.body.length === 0) {
           return res(
