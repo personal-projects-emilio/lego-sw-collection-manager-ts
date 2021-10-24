@@ -42,7 +42,7 @@ const initialState: AuthState = {
 export const authenticate = createAsyncThunk<AuthResponse, AuthPayload>('auth/authenticate',
   async (payload, { rejectWithValue }) => {
     try {
-      const response: AuthResponse = await ky.post(process.env.REACT_APP_AUTH_BASEURL as string, {
+      const response: AuthResponse = await ky.post(process.env.REACT_APP_AUTH_BASEURL, {
         json: {
           ...payload,
           returnSecureToken: true
@@ -51,7 +51,7 @@ export const authenticate = createAsyncThunk<AuthResponse, AuthPayload>('auth/au
       // TODO: Add redirectRoute when starting working on other mages than /minifigs
       history.push('/minifigs');
       return response
-    } catch (err) {
+    } catch (err: any) {
       console.error('Unable to authenticate', err);
       return rejectWithValue(err.response.data)
     }
