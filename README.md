@@ -1,49 +1,66 @@
 [![build](https://github.com/personal-projects-emilio/lego-sw-collection-manager-ts/actions/workflows/build.yml/badge.svg)](https://github.com/personal-projects-emilio/lego-sw-collection-manager-ts/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/personal-projects-emilio/lego-sw-collection-manager-ts/branch/main/graph/badge.svg?token=RZ5YLKOXJP)](https://codecov.io/gh/personal-projects-emilio/lego-sw-collection-manager-ts)
 
-# Getting Started with Create React App
+# Lego Star Wars Collection Manager
+  - [Environnement variable and secrets](#environnement-variable-and-secrets)
+  - [Available Scripts](#available-scripts)
+    - [`npm start`](#npm-start)
+    - [`npm test`](#npm-test)
+    - [`npm run test:coverage`](#npm-run-testcoverage)
+    - [`npm run build`](#npm-run-build)
+    - [`npm run analyze`](#npm-run-analyze)
+  - [TODO](#todo)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is using packages like [Redux](https://redux.js.org/), [Material-UI](https://mui.com/), etc. And it is written in Typescript. The app is build and deploy on a [github page](https://personal-projects-emilio.github.io/lego-sw-collection-manager-ts/minifigs) via [github actions](https://github.com/personal-projects-emilio/lego-sw-collection-manager-ts/blob/main/.github/workflows/deploy.yml).
+
+## Environnement variable and secrets
+
+If you want to use the project you will need two variable in the .env file as shown in the .env.example file.
+```sh
+REACT_APP_API_BASEURL =
+REACT_APP_AUTH_BASEURL =
+```
+You will need the codecov token and github action deploy key as [github secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) if you want to use the github actions.
+```sh
+CODECOV_TOKEN
+ACTIONS_DEPLOY_KEY
+```
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, after running `npm install` you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ### `npm test`
+Launches the test runner in the interactive watch mode.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run test:coverage`
+Launches the test runner in the interactive watch mode and create the coverage report in the `coverage` folder.
 
 ### `npm run build`
-
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
+The build is minified and the filenames include the hashes.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run analyze`
+Build the app and analyze it with [source-map-explorer](https://github.com/danvk/source-map-explorer)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## TODO
+- [x] Minifigs with CRUD
+- [x] Filtering and pagination for minifigs
+- [ ] Add a category field to the minifigs
+- [ ] Multiple edit for category/tags/characterName
+- [ ] Duplicate minifig option
+- [ ] Refactor with personal Express.js API
+- [ ] Basic frames without edition
+- [ ] Frames with CRUD
+- [ ] Sets
+- [ ] Storages boxes
