@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Autocomplete, {
   createFilterOptions,
-} from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
+} from '@mui/material/Autocomplete';
+import TextField from "@mui/material/TextField";
 import { AutoCompleteProps, AutoCompleteOption } from "../interface";
 
 const filter = createFilterOptions<AutoCompleteOption>();
@@ -76,38 +76,36 @@ export const AutoComplete = React.forwardRef<any, AutoCompleteProps>(
         options={options}
         autoHighlight
         freeSolo={!!creatable}
-        selectOnFocus={!!creatable}
         openOnFocus
-        clearOnBlur={!!creatable}
-        handleHomeEndKeys={!!creatable}
         value={optionValue}
-        filterOptions={(options: AutoCompleteOption[], params) => {
+        filterOptions={(options, params) => {
           const filtered = filter(options, params);
+          const trimedInputValue = params.inputValue.trim()
           // Suggest the creation of a new value only if it does not exist in the options or newly created values
           if (
-            params.inputValue !== "" &&
+            trimedInputValue !== "" &&
             creatable &&
             ((Array.isArray(optionValue) &&
               !optionValue.find(
-                (option) => option.value === params.inputValue
+                (option) => option.value === trimedInputValue
               ) &&
-              !options.find((option) => option.value === params.inputValue)) ||
+              !options.find((option) => option.value === trimedInputValue)) ||
               !Array.isArray(optionValue))
           ) {
             filtered.push({
-              value: params.inputValue,
-              label: `Add "${params.inputValue}"`,
+              value: trimedInputValue,
+              label: `Add "${trimedInputValue}"`,
               added: true,
             });
           }
           return filtered;
         }}
-        getOptionSelected={(option, value) => {
-          if (value?.added) {
-            return false;
-          }
-          return option.value === value.value;
-        }}
+        // isOptionEqualToValue={(option, value) => {
+        //   if (value?.added) {
+        //     return false;
+        //   }
+        //   return option.value === value?.value;
+        // }}
         getOptionLabel={(option: AutoCompleteOption) => option.label}
         onChange={(_e, value: any) => {
           onChangeHandler(value);

@@ -1,8 +1,8 @@
 import React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import { useAppDispatch, useAppSelector } from "hooks/store";
 import {
   selectPaginatedMinifigsList,
@@ -11,18 +11,10 @@ import {
 import MinifigsPagination from "./MinifigsPagination";
 import MinifigCard from "./MinifigCard";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    resetFilters: {
-      marginTop: theme.spacing(2),
-    },
-  })
-);
 
 export const MinifigsList = () => {
   const paginatedMinifigsList = useAppSelector(selectPaginatedMinifigsList);
   const dispatch = useAppDispatch();
-  const classes = useStyles();
 
   if (!Array.isArray(paginatedMinifigsList)) return null;
 
@@ -33,7 +25,7 @@ export const MinifigsList = () => {
         justifyContent="center"
         direction="column"
         alignItems="center"
-        className={classes.resetFilters}
+        sx={{marginTop: 2}}
       >
         <Typography align="center" variant="h6">
           There are no minifigs with those filters
@@ -48,19 +40,17 @@ export const MinifigsList = () => {
     );
 
   return (
-    <>
-      <Grid item xs={12}>
-        <MinifigsPagination />
+    <Box sx={{marginX: 2}}>
+      <MinifigsPagination />
+      <Grid container spacing={2}>
+        {paginatedMinifigsList.map((minifig) => (
+          <Grid item xs={6} sm={4} md={3} lg={2} key={minifig.id}>
+            <MinifigCard {...minifig} />
+          </Grid>
+        ))}
       </Grid>
-      {paginatedMinifigsList.map((minifig) => (
-        <Grid item xs={6} sm={4} md={3} lg={2} key={minifig.id}>
-          <MinifigCard {...minifig} />
-        </Grid>
-      ))}
-      <Grid item xs={12}>
-        <MinifigsPagination />
-      </Grid>
-    </>
+      <MinifigsPagination />
+    </Box>
   );
 };
 

@@ -1,19 +1,7 @@
 import React, { useCallback } from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import { NavLink } from "react-router-dom";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    activeLink: {
-      color: theme.palette.primary.main,
-      fontWeight: theme.typography.fontWeightBold,
-    },
-  })
-);
+import { Menu, MenuItem, IconButton } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Link, useLocation } from "react-router-dom";
 
 interface BurgerMenuProps {
   isAuthenticate: boolean;
@@ -24,7 +12,7 @@ export const BurgerMenu: React.FC<BurgerMenuProps> = ({
   isAuthenticate,
   logoutHandler,
 }) => {
-  const classes = useStyles();
+  const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -42,10 +30,11 @@ export const BurgerMenu: React.FC<BurgerMenuProps> = ({
   return (
     <>
       <IconButton
-        data-testid="burger-icon"
+        id="application-menu-icon"
         aria-label="application menu icon"
-        aria-controls="menu-header"
+        aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
         onClick={handleMenu}
         color="inherit"
       >
@@ -53,24 +42,33 @@ export const BurgerMenu: React.FC<BurgerMenuProps> = ({
       </IconButton>
       <Menu
         id="menu-header"
-        anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: "top",
+          vertical: "bottom",
           horizontal: "right",
         }}
-        keepMounted
         transformOrigin={{
           vertical: "top",
           horizontal: "right",
         }}
+        anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        sx={{
+          display: "flex",
+          padding: "0 0.5rem",
+          "& .Mui-selected": {
+            color: 'primary.main',
+            fontWeight: 'fontWeightBold',
+          },
+        }}
+        MenuListProps={{
+          "aria-labelledby": "application-menu-icon",
+        }}
       >
         <MenuItem
-          data-testid="minifigs"
-          component={NavLink}
+          component={Link}
           to="/minifigs"
-          activeClassName={classes.activeLink}
+          selected={pathname === "/minifigs"}
           onClick={handleClose}
         >
           Minifigs
@@ -79,10 +77,9 @@ export const BurgerMenu: React.FC<BurgerMenuProps> = ({
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         ) : (
           <MenuItem
-            data-testid="auth"
-            component={NavLink}
+            component={Link}
             to="/auth"
-            activeClassName={classes.activeLink}
+            selected={pathname === "/auth"}
             onClick={handleClose}
           >
             Authentication

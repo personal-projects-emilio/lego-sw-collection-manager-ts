@@ -3,7 +3,7 @@ import { MinifigsFilters, MinifigsList, TagOrCharacNameList } from "interfaces/m
 
 
 /**
- * Return the statistcs from the MinifigsList (totalNumber, numberOwned and percentageOwned)
+ * Return the statistics from the MinifigsList (totalNumber, numberOwned and percentageOwned)
  * @param  {MinifigsList} minifigsList
  */
 export const getStatistics = (minifigsList: MinifigsList) => {

@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import Inputs from "components/commons/inputs";
 import { useAppDispatch, useAppSelector } from "hooks";
 import {

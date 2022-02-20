@@ -1,11 +1,11 @@
 import React from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { Link, useLocation } from "react-router-dom";
 
 const a11yProps = (index: any) => ({
-  id: `simple-tab-${index}`,
-  "aria-controls": `simple-tabpanel-${index}`,
+  id: `tab-nav-${index}`,
+  "aria-controls": `tab-nav-${index}`,
 });
 
 interface TabMenuProps {
@@ -20,7 +20,7 @@ export const TabMenu: React.FC<TabMenuProps> = ({
   const { pathname } = useLocation();
 
   return (
-    <Tabs value={pathname} aria-label="Tab menu">
+    <Tabs value={pathname} aria-label="Tab Navigation menu">
       <Tab
         data-testid="minifigs"
         label="Minifigs"

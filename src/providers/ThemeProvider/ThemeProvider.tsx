@@ -1,17 +1,25 @@
 import React from "react";
-import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
 
-// declare module "@material-ui/core/styles" {
+// declare module '@mui/material/styles' {
 //   interface Theme {
-//     custom?: any;
+//     status: {
+//       danger: string;
+//     };
 //   }
+//   // allow configuration using `createTheme`
 //   interface ThemeOptions {
-//     custom?: any;
+//     status?: {
+//       danger?: string;
+//     };
 //   }
 // }
-
 const theme = createTheme({
   spacing: (factor: number) => `${factor * 0.5}em`,
+  palette: {
+    mode: 'dark'
+  }
   // TODO: Let the popper/modal/popover on the body or place them in the root?
   // props: {
   //   MuiPopover: {
@@ -20,8 +28,8 @@ const theme = createTheme({
   // },
 });
 
-export const RouterProvider: React.FC = ({ children }) => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+export const CustomThemeProvider: React.FC = ({ children }) => (
+  <ThemeProvider theme={theme}><CssBaseline />{children}</ThemeProvider>
 );
 
-export default RouterProvider;
+export default CustomThemeProvider;

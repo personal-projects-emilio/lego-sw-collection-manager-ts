@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Minifig } from "interfaces/minifigs";
 import Inputs from "../inputs";
@@ -95,7 +95,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
         <DialogTitle id="minifig-form-dialog">
           {editMinifigData ? `Edit ${editMinifigData.id}` : "Add a minifig"}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent dividers>
           <Grid container direction="column" spacing={2}>
             <Grid item xs={12}>
               <Controller

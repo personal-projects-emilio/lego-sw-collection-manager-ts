@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
-import IconButton from "@material-ui/core/IconButton";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import IconButton from "@mui/material/IconButton";
 import bricksetLogo from "assets/images/logo/brickset.png";
 import bricklinkLogo from "assets/images/logo/bricklink.png";
 
@@ -10,25 +9,12 @@ type LogoLinkProps = { id: string } & (
 ) &
   ({ minifig: true; set?: never } | { minifig?: never; set: true });
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    icon: {
-      "& img": {
-        height: "2rem",
-        width: "2rem",
-      },
-      margin: theme.spacing(0.5),
-      padding: theme.spacing(0.7),
-    },
-  })
-);
-
 export const LogoLink: React.FC<LogoLinkProps> = ({
   bricklink,
   minifig,
   id,
 }) => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   // TODO: Test later but the cost of useMemo first render does not seem worth here
   // const imageSrc = useMemo(
@@ -49,7 +35,17 @@ export const LogoLink: React.FC<LogoLinkProps> = ({
   }, [bricklink, minifig, id]);
 
   return (
-    <IconButton className={classes.icon} href={linkURL}>
+    <IconButton
+      href={linkURL}
+      sx={{
+        "& img": {
+          height: "2rem",
+          width: "2rem",
+        },
+        margin: 0.5,
+        padding: 0.7
+      }}
+      >
       <img
         alt={bricklink ? "bricklink-logo" : "brickset-logo"}
         src={bricklink ? bricklinkLogo : bricksetLogo}

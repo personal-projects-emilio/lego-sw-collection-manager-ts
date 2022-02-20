@@ -25,7 +25,7 @@ test("render minifigs pagination", async () => {
   expect(screen.getByText("1 - 25 of 42")).toBeInTheDocument();
 
   // Second page
-  const nextButtonElement = screen.getByTitle("Next page");
+  const nextButtonElement = screen.getByTitle("Go to next page");
   fireEvent.click(nextButtonElement);
   expect(screen.getByText("26 - 42 of 42")).toBeInTheDocument();
 

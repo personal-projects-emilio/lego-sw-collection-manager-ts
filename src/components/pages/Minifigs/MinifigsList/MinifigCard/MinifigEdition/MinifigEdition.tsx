@@ -1,13 +1,12 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Grid from "@mui/material/Grid";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 import { Minifig } from "interfaces/minifigs";
 import Inputs from "components/commons/inputs";
 import MinifigFormModal from "components/commons/MinifigFormModal/MinifigFormModal";
@@ -21,17 +20,8 @@ import Button from "components/commons/Button";
 
 export type MinifigEditionProps = Minifig;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      paddingTop: theme.spacing(0.5),
-    },
-  })
-);
-
 export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
   const { possessed, id } = props;
-  const classes = useStyles();
   const [isEditModalOpen, toggleEditModalOpen] = useToggle();
   const [isDeleteModalOpen, toggleDeleteModalOpen] = useToggle();
 
@@ -40,11 +30,11 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
   return (
     <Grid
       container
-      className={classes.container}
       justifyContent="space-evenly"
       alignItems="center"
+      sx={{paddingTop: 0.5}}
     >
-      <Tooltip title="Switch possession" aria-label="Switch possession">
+      <Tooltip title="Switch possession" aria-label="Switch possession tooltip">
         <span>
           <Inputs
             type="switch"
@@ -54,8 +44,8 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
           />
         </span>
       </Tooltip>
-      <Tooltip title="Edit" aria-label="Edit">
-        <IconButton onClick={() => toggleEditModalOpen()}>
+      <Tooltip title="Edit" aria-label="Edit tooltip">
+        <IconButton onClick={() => toggleEditModalOpen()} arial-label="edit">
           <EditIcon />
         </IconButton>
       </Tooltip>
@@ -65,9 +55,10 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
           editMinifigData={props}
         />
       )}
-      <Tooltip title="Delete" aria-label="Delete">
+      <Tooltip title="Delete" aria-label="Delete tooltip">
         <IconButton
           disabled={isLoading}
+          aria-label="delete"
           onClick={() => toggleDeleteModalOpen()}
         >
           <DeleteIcon />

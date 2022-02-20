@@ -1,29 +1,15 @@
 import React, { useCallback } from "react";
-import TablePagination from "@material-ui/core/TablePagination";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import TablePagination from "@mui/material/TablePagination";
 import { useAppDispatch, useAppSelector } from "hooks/store";
 import {
   selectMinifigsPagination,
   setMinifigsPagination,
 } from "store/minifigs";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    spacer: {
-      display: "none",
-      flex: "none",
-    },
-    toolbar: {
-      justifyContent: "center",
-    },
-  })
-);
-
 export const MinifigsPagination: React.FC = () => {
   const pagination = useAppSelector(selectMinifigsPagination);
   const dispatch = useAppDispatch();
   const { activePage, nbPerPage, total } = pagination;
-  const classes = useStyles();
 
   const getLabelDisplayRows = useCallback(
     ({ from, to, count }) => {
@@ -66,9 +52,14 @@ export const MinifigsPagination: React.FC = () => {
           })
         );
       }}
-      classes={{
-        spacer: classes.spacer,
-        toolbar: classes.toolbar,
+      sx={{
+        '& .MuiTablePagination-spacer': {
+          display: "none",
+          flex: "none"
+        },
+        '& .MuiTablePagination-toolbar': {
+          justifyContent: "center"
+        },
       }}
     />
   );
