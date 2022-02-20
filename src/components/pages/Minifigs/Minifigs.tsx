@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Grid from "@material-ui/core/Grid";
 import { useAppDispatch, useAppSelector } from "hooks/store";
 import Loader from "components/commons/Loader";
 import {
@@ -9,6 +8,7 @@ import {
 } from "store/minifigs";
 import MinifigsList from "./MinifigsList";
 import MinifigsMenu from "./MinifigsMenu";
+import { Box } from "@mui/material";
 
 export const Minifigs = () => {
   const dispatch = useAppDispatch();
@@ -22,12 +22,10 @@ export const Minifigs = () => {
   if (!Array.isArray(minifigsList) && isLoading) return <Loader />;
 
   return (
-    <Grid container justifyContent="center" alignItems="stretch">
-      <Grid item xs={12}>
-        <MinifigsMenu />
-      </Grid>
+    <Box>
+      <MinifigsMenu />
       <MinifigsList />
-    </Grid>
+    </Box>
   );
 };
 

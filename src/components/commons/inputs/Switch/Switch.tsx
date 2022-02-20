@@ -1,7 +1,7 @@
 import React from "react";
 import { SwitchProps } from "../interface";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 
 export const CustomSwitch = React.forwardRef<any, SwitchProps>(
   ({ value, label, muiProps, onChange }, ref) => {

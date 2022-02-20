@@ -1,10 +1,10 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/AddCircle";
-import CloudDownload from "@material-ui/icons/CloudDownload";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/AddCircle";
+import CloudDownload from "@mui/icons-material/CloudDownload";
 import MinifigFormModal from "components/commons/MinifigFormModal/MinifigFormModal";
 import { useAppSelector, useToggle } from "hooks";
 import { selectMinifigsList } from "store/minifigs";
@@ -19,9 +19,9 @@ export const MinifigsMisce: React.FC = () => {
   );
 
   return (
-    <Grid container direction="column" spacing={4}>
+    <Grid container direction="column" rowSpacing={3}>
       <Grid item>
-        <Typography align="center" variant="h6">
+        <Typography align="center" variant="h6" sx={{marginBottom: 1.5}}>
           {`You owned ${numberOwned} of the ${totalNumber} minifigs in our database (${percentageOwned}%)`}
         </Typography>
       </Grid>

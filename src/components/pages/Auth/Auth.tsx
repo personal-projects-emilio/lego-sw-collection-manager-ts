@@ -1,27 +1,15 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import Inputs from "components/commons/inputs";
 import { useAppDispatch, useAppSelector, useToggle } from "hooks";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "components/commons/Button";
 import { authenticate, selectAuthIsLoading } from "store/auth";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paper: {
-      padding: theme.spacing(2),
-      margin: theme.spacing(2),
-      boxSizing: "border-box",
-      minHeight: `calc(100% - ${theme.spacing(4)})`,
-    },
-  })
-);
 
 export type AuthInputs = {
   email: string;
@@ -43,7 +31,6 @@ export const Auth: React.FC = () => {
     },
     mode: "onChange",
   });
-  const classes = useStyles();
 
   const onSubmit: SubmitHandler<AuthInputs> = (data) =>
     dispatch(authenticate(data));
@@ -52,7 +39,12 @@ export const Auth: React.FC = () => {
     <Paper
       component="form"
       onSubmit={handleSubmit(onSubmit)}
-      className={classes.paper}
+      sx={{
+        padding: 2,
+        margin: 2,
+        boxSizing: "border-box",
+        minHeight: (theme) => `calc(100% - ${theme.spacing(4)})`,
+      }}
     >
       <Grid container justifyContent="center" spacing={2}>
         <Grid item xs={12}>

@@ -1,67 +1,62 @@
 import React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Tooltip from "@material-ui/core/Tooltip";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Tooltip, { tooltipClasses, TooltipProps } from "@mui/material/Tooltip";
 import { Minifig } from "interfaces/minifigs";
 import NameAndTags from "./NameAndTags";
 import MinifigEdition from "./MinifigEdition";
 import LogoLink from "components/commons/LogoLink";
+import { styled } from "@mui/material/styles";
 
 export type MinifigCardProps = Minifig;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paper: {
-      display: "flex",
-      textAlign: "center",
-      margin: theme.spacing(1),
-      padding: theme.spacing(0.5),
-      boxSizing: "border-box",
-      height: `calc(100% - ${theme.spacing(1)})`,
-    },
-    picture: {
-      width: "auto",
-      maxWidth: "90%",
-      maxHeight: "100%",
-      // height: theme.spacing(25),
-    },
-    reference: {
-      textTransform: "uppercase",
-    },
-    item: {
-      width: "100%",
-      "& hr": {
-        width: `calc(100% + ${theme.spacing(1)})`,
-        marginLeft: theme.spacing(-0.5),
-      },
-    },
-    tooltip: {
-      textAlign: "center",
-      maxWidth: "15em",
-    },
-  })
-);
+const StyledImg = styled('img')(() => ({
+  width: "auto",
+  maxWidth: "90%",
+  maxHeight: "100%",
+  // height: theme.spacing(25),
+}));
+
+const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: '15em',
+    textAlign: 'center'
+  },
+});
 
 export const MinifigCard: React.FC<MinifigCardProps> = (props) => {
-  const classes = useStyles();
   const { id, characterName, name, tags } = props;
   return (
-    <Paper className={classes.paper}>
+    <Paper sx={{
+      display: "flex",
+      textAlign: "center",
+      margin: 1,
+      padding: 0.5,
+      boxSizing: "border-box",
+      height: (theme) => `calc(100% - ${theme.spacing(1)})`,
+      width: (theme) => `calc(100% - ${theme.spacing(1)})`
+    }}>
       <Grid container direction="column" justifyContent="space-between">
         <Grid item>
-          <Tooltip title={name} classes={{ tooltip: classes.tooltip }}>
-            <img
-              className={classes.picture}
+          <CustomWidthTooltip title={name}>
+            <StyledImg
               src={`https://img.bricklink.com/ItemImage/MN/0/${id}.png`}
               alt={`${id}-bricklink-png`}
             />
-          </Tooltip>
+          </CustomWidthTooltip>
         </Grid>
-        <Grid item className={classes.item}>
-          <Typography className={classes.reference}>{id}</Typography>
+        <Grid item sx={{
+          width: 1,
+          '& .MuiDivider-root': {
+            width: (theme) => `calc(100% + ${theme.spacing(1)})`,
+            marginLeft: -0.5
+          }
+        }}>
+          <Typography sx={{textTransform: 'uppercase'}}>{id}</Typography>
           <Divider variant="fullWidth" />
           <NameAndTags characterName={characterName} tags={tags} />
           <Divider variant="fullWidth" />
