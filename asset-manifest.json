@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/lego-sw-collection-manager-ts/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/lego-sw-collection-manager-ts/static/js/main.ef5c04f8.chunk.js",
-    "main.js.map": "/lego-sw-collection-manager-ts/static/js/main.ef5c04f8.chunk.js.map",
-    "runtime-main.js": "/lego-sw-collection-manager-ts/static/js/runtime-main.8c50d5c9.js",
-    "runtime-main.js.map": "/lego-sw-collection-manager-ts/static/js/runtime-main.8c50d5c9.js.map",
-    "static/js/2.d8357d4c.chunk.js": "/lego-sw-collection-manager-ts/static/js/2.d8357d4c.chunk.js",
-    "static/js/2.d8357d4c.chunk.js.map": "/lego-sw-collection-manager-ts/static/js/2.d8357d4c.chunk.js.map",
-    "static/js/3.e153aff3.chunk.js": "/lego-sw-collection-manager-ts/static/js/3.e153aff3.chunk.js",
-    "static/js/3.e153aff3.chunk.js.map": "/lego-sw-collection-manager-ts/static/js/3.e153aff3.chunk.js.map",
+    "main.js": "/lego-sw-collection-manager-ts/static/js/main.00502abd.chunk.js",
+    "main.js.map": "/lego-sw-collection-manager-ts/static/js/main.00502abd.chunk.js.map",
+    "runtime-main.js": "/lego-sw-collection-manager-ts/static/js/runtime-main.7eecdf88.js",
+    "runtime-main.js.map": "/lego-sw-collection-manager-ts/static/js/runtime-main.7eecdf88.js.map",
+    "static/js/2.49bc3593.chunk.js": "/lego-sw-collection-manager-ts/static/js/2.49bc3593.chunk.js",
+    "static/js/2.49bc3593.chunk.js.map": "/lego-sw-collection-manager-ts/static/js/2.49bc3593.chunk.js.map",
+    "static/js/3.24882319.chunk.js": "/lego-sw-collection-manager-ts/static/js/3.24882319.chunk.js",
+    "static/js/3.24882319.chunk.js.map": "/lego-sw-collection-manager-ts/static/js/3.24882319.chunk.js.map",
     "index.html": "/lego-sw-collection-manager-ts/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/lego-sw-collection-manager-ts/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.d8357d4c.chunk.js.LICENSE.txt": "/lego-sw-collection-manager-ts/static/js/2.d8357d4c.chunk.js.LICENSE.txt",
+    "static/js/2.49bc3593.chunk.js.LICENSE.txt": "/lego-sw-collection-manager-ts/static/js/2.49bc3593.chunk.js.LICENSE.txt",
     "static/media/bricklink.7488f58e.png": "/lego-sw-collection-manager-ts/static/media/bricklink.7488f58e.png",
     "static/media/brickset.cdd8ff5b.png": "/lego-sw-collection-manager-ts/static/media/brickset.cdd8ff5b.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.8c50d5c9.js",
-    "static/js/2.d8357d4c.chunk.js",
+    "static/js/runtime-main.7eecdf88.js",
+    "static/js/2.49bc3593.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.ef5c04f8.chunk.js"
+    "static/js/main.00502abd.chunk.js"
   ]
 }
