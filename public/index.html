@@ -25,7 +25,6 @@
     -->
   <base href="%PUBLIC_URL%/">
   <title>Lego SW</title>
-  <!-- Start Single Page Apps for GitHub Pages -->
   <script type="text/javascript">
     // Single Page Apps for GitHub Pages
     // MIT License
@@ -47,8 +46,15 @@
         );
       }
     }(window.location))
+    // Redirect to Router basename to stay in the React app
+    if (!window.location.pathname.includes("%PUBLIC_URL%/",)) {
+      window.history.replaceState(
+        '',
+        '',
+        "%PUBLIC_URL%/", + window.location.pathname
+      );
+}
   </script>
-  <!-- End Single Page Apps for GitHub Pages -->
 </head>
 
 <body>

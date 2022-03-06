@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Header from "components/commons/Header";
-import Routes from "./routes";
+import AppRoutes from "components/routes";
 import { useAppDispatch } from "hooks";
 import { tryAutoSignIn } from "store/auth";
 
@@ -14,7 +14,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <Routes />
+      <AppRoutes />
     </>
   );
 };
