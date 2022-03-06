@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { AppBar, Toolbar, Typography, Hidden } from "@mui/material";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { logout, selectIsAuthenticate } from "store/auth";
 import BurgerMenu from "./BurgerMenu";
@@ -9,12 +9,12 @@ import TabMenu from "./TabMenu";
 export const Header = () => {
   const isAuthenticate = useAppSelector(selectIsAuthenticate);
   const dispatch = useAppDispatch();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   const logoutHandler = useCallback(() => {
     dispatch(logout());
-    push("/auth");
-  }, [dispatch, push]);
+    navigate("/auth");
+  }, [dispatch, navigate]);
 
   return (
     <AppBar position="sticky">

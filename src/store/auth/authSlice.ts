@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction, createAction } from '@reduxjs/toolkit'
 import ky from 'ky';
-import history from "appHistory";
+import { navigate } from "appHistory";
 
 interface AuthState {
   token: null | string;
@@ -49,7 +49,7 @@ export const authenticate = createAsyncThunk<AuthResponse, AuthPayload>('auth/au
         }
       }).json();
       // TODO: Add redirectRoute when starting working on other mages than /minifigs
-      history.push('/minifigs');
+      navigate('/minifigs');
       return response
     } catch (err: any) {
       console.error('Unable to authenticate', err);
