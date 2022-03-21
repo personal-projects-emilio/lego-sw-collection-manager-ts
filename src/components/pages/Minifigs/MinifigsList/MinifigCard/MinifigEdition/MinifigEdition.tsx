@@ -4,6 +4,7 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -21,8 +22,10 @@ import Button from "components/commons/Button";
 export type MinifigEditionProps = Minifig;
 
 export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
-  const { possessed, id } = props;
+  const { possessed, id, characterName, tags } = props;
+  const duplicateProps = {characterName, tags}
   const [isEditModalOpen, toggleEditModalOpen] = useToggle();
+  const [isDuplicateModalOpen, toggleDuplicateModalOpen] = useToggle();
   const [isDeleteModalOpen, toggleDeleteModalOpen] = useToggle();
 
   const isLoading = useAppSelector(selectMinifigsIsLoading);
@@ -49,10 +52,15 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
           <EditIcon />
         </IconButton>
       </Tooltip>
-      {isEditModalOpen && (
+      <Tooltip title="Duplicate character name and tags" aria-label="Duplicate tooltip">
+        <IconButton onClick={() => toggleDuplicateModalOpen()} arial-label="duplicate">
+          <ContentCopyIcon />
+        </IconButton>
+      </Tooltip>
+      {(isEditModalOpen || isDuplicateModalOpen) && (
         <MinifigFormModal
-          handleClose={() => toggleEditModalOpen()}
-          editMinifigData={props}
+          handleClose={() => isEditModalOpen? toggleEditModalOpen() : toggleDuplicateModalOpen()}
+          editMinifigData={isEditModalOpen ? props : duplicateProps}
         />
       )}
       <Tooltip title="Delete" aria-label="Delete tooltip">

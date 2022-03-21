@@ -19,7 +19,7 @@ import Button from "../Button";
 
 export interface MinifigFormModalProps {
   handleClose: () => void;
-  editMinifigData?: Minifig;
+  editMinifigData?: Partial<Minifig>;
 }
 
 export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
@@ -77,7 +77,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
   };
 
   const onSubmit: SubmitHandler<Minifig> = (data) => {
-    if (editMinifigData) {
+    if (editMinifigData?.id) {
       return dispatch(editMinifig(data));
     }
     return dispatch(addMinifig(data));
@@ -93,7 +93,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle id="minifig-form-dialog">
-          {editMinifigData ? `Edit ${editMinifigData.id}` : "Add a minifig"}
+          {editMinifigData?.id ? `Edit ${editMinifigData.id}` : "Add a minifig"}
         </DialogTitle>
         <DialogContent dividers>
           <Grid container direction="column" spacing={2}>
@@ -126,7 +126,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
                       placeholder="Minifig id (ex: sw0001a)"
                       type="textfield"
                       muiProps={{
-                        disabled: !!editMinifigData,
+                        disabled: !!editMinifigData?.id,
                         error: fieldState.invalid,
                         helperText: fieldState.error?.message,
                         required: true,

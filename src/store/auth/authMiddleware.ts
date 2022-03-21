@@ -10,7 +10,7 @@ const clearAuthLocalStorage = () => {
   localStorage.removeItem("userId");
 }
 
-let expireAuthTiemout: any;
+let expireAuthTiemout: NodeJS.Timeout;
 
 const setAuthTimeout = (expirationDateISO: string, dispatch: Dispatch<AnyAction>) => {
   expireAuthTiemout = setTimeout(() => {
