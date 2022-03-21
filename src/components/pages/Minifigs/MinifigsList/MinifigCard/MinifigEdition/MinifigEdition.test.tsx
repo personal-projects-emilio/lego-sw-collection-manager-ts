@@ -21,6 +21,15 @@ test("toggle edit minifig modal", () => {
   expect(screen.queryByText("Edit sw0001a")).not.toBeInTheDocument();
 });
 
+test("toggle duplicate minifig modal", () => {
+  render(<MinifigEdition {...minifig} />);
+  expect(screen.queryByText("Add a minifig")).not.toBeInTheDocument();
+  fireEvent.click(screen.getByLabelText(/duplicate/i));
+  expect(screen.getByText("Add a minifig")).toBeInTheDocument();
+  fireEvent.click(screen.getByText("Cancel"));
+  expect(screen.queryByText("Add a minifig")).not.toBeInTheDocument();
+});
+
 test("fail toggle owned minifig because of store error", async () => {
   const preloadedState = produce(initialStoreMocked, (draft) => {
     draft.auth.token = "Authenticated";
