@@ -1,10 +1,12 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import minifigsReducer from './minifigs';
 import authReducer, { authMiddleware } from './auth';
+import framesReducer from './frames';
 
 export const reducer = combineReducers({
   minifigs: minifigsReducer,
-  auth: authReducer
+  auth: authReducer,
+  frames: framesReducer
 })
 
 // Helper function used for testing

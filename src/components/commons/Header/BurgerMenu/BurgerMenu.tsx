@@ -73,6 +73,14 @@ export const BurgerMenu: React.FC<BurgerMenuProps> = ({
         >
           Minifigs
         </MenuItem>
+        <MenuItem
+          component={Link}
+          to="/frames"
+          selected={pathname === "/frames"}
+          onClick={handleClose}
+        >
+          Frames
+        </MenuItem>
         {isAuthenticate ? (
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         ) : (
