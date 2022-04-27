@@ -1,2 +1,2 @@
-import StoreProvider from "./StoreProvider";
-export default StoreProvider;
+import StoreProvider from './StoreProvider'
+export default StoreProvider

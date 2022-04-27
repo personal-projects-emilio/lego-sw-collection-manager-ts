@@ -1,2 +1,2 @@
-import MinifigsFilters from './MinifigsFilters';
-export default MinifigsFilters;
+import MinifigsFilters from './MinifigsFilters'
+export default MinifigsFilters

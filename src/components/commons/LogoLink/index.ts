@@ -1,2 +1,2 @@
-import LogoLink from './LogoLink';
-export default LogoLink;
+import LogoLink from './LogoLink'
+export default LogoLink

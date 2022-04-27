@@ -1,22 +1,18 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import { useAppDispatch, useAppSelector } from "hooks/store";
-import {
-  selectPaginatedMinifigsList,
-  resetMinifigsFilters,
-} from "store/minifigs";
-import MinifigsPagination from "./MinifigsPagination";
-import MinifigCard from "./MinifigCard";
-
+import React from 'react'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
+import { useAppDispatch, useAppSelector } from 'hooks/store'
+import { selectPaginatedMinifigsList, resetMinifigsFilters } from 'store/minifigs'
+import MinifigsPagination from './MinifigsPagination'
+import MinifigCard from './MinifigCard'
 
 export const MinifigsList = () => {
-  const paginatedMinifigsList = useAppSelector(selectPaginatedMinifigsList);
-  const dispatch = useAppDispatch();
+  const paginatedMinifigsList = useAppSelector(selectPaginatedMinifigsList)
+  const dispatch = useAppDispatch()
 
-  if (!Array.isArray(paginatedMinifigsList)) return null;
+  if (!Array.isArray(paginatedMinifigsList)) return null
 
   if (paginatedMinifigsList.length === 0)
     return (
@@ -25,22 +21,19 @@ export const MinifigsList = () => {
         justifyContent="center"
         direction="column"
         alignItems="center"
-        sx={{marginTop: 2}}
+        sx={{ marginTop: 2 }}
       >
         <Typography align="center" variant="h6">
           There are no minifigs with those filters
         </Typography>
-        <Button
-          variant="contained"
-          onClick={() => dispatch(resetMinifigsFilters())}
-        >
+        <Button variant="contained" onClick={() => dispatch(resetMinifigsFilters())}>
           Reset filters
         </Button>
       </Grid>
-    );
+    )
 
   return (
-    <Box sx={{marginX: 2}}>
+    <Box sx={{ marginX: 2 }}>
       <MinifigsPagination />
       <Grid container spacing={2}>
         {paginatedMinifigsList.map((minifig) => (
@@ -51,7 +44,7 @@ export const MinifigsList = () => {
       </Grid>
       <MinifigsPagination />
     </Box>
-  );
-};
+  )
+}
 
-export default MinifigsList;
+export default MinifigsList

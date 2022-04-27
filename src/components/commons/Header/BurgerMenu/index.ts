@@ -1,2 +1,2 @@
-import BurgerMenu from './BurgerMenu';
-export default BurgerMenu;
+import BurgerMenu from './BurgerMenu'
+export default BurgerMenu

@@ -1,2 +1,2 @@
-import MinifigsPagination from './MinifigsPagination';
-export default MinifigsPagination;
+import MinifigsPagination from './MinifigsPagination'
+export default MinifigsPagination

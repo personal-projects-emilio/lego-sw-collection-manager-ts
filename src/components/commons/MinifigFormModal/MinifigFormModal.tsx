@@ -1,35 +1,35 @@
-import React, { useMemo } from "react";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Grid from "@mui/material/Grid";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { Minifig } from "interfaces/minifigs";
-import Inputs from "../inputs";
-import { useAppDispatch, useAppSelector } from "hooks/store";
+import React, { useMemo } from 'react'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import Grid from '@mui/material/Grid'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { Minifig } from 'interfaces/minifigs'
+import Inputs from '../inputs'
+import { useAppDispatch, useAppSelector } from 'hooks/store'
 import {
   addMinifig,
   editMinifig,
   selectMinifigsIsLoading,
   selectMinifigsList,
   selectTagsAndCharacNames,
-} from "store/minifigs";
-import Button from "../Button";
+} from 'store/minifigs'
+import Button from '../Button'
 
 export interface MinifigFormModalProps {
-  handleClose: () => void;
-  editMinifigData?: Partial<Minifig>;
+  handleClose: () => void
+  editMinifigData?: Partial<Minifig>
 }
 
 export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
   handleClose,
   editMinifigData,
 }) => {
-  const { tags, characNames } = useAppSelector(selectTagsAndCharacNames);
-  const minifigsList = useAppSelector(selectMinifigsList);
-  const isLoading = useAppSelector(selectMinifigsIsLoading);
-  const dispatch = useAppDispatch();
+  const { tags, characNames } = useAppSelector(selectTagsAndCharacNames)
+  const minifigsList = useAppSelector(selectMinifigsList)
+  const isLoading = useAppSelector(selectMinifigsIsLoading)
+  const dispatch = useAppDispatch()
   const {
     control,
     reset,
@@ -38,14 +38,14 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
     formState: { isValid },
   } = useForm<Minifig>({
     defaultValues: editMinifigData || {
-      id: "",
-      name: "",
-      characterName: "",
+      id: '',
+      name: '',
+      characterName: '',
       tags: [],
       possessed: false,
     },
-    mode: "onChange",
-  });
+    mode: 'onChange',
+  })
 
   const characNamesOptions = useMemo(
     () =>
@@ -54,7 +54,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
         value: characName.name,
       })) || [],
     [characNames]
-  );
+  )
 
   const tagsOptions = useMemo(
     () =>
@@ -63,37 +63,31 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
         value: tag.name,
       })) || [],
     [tags]
-  );
+  )
 
   const minifigsListIds = useMemo(
     () => minifigsList?.map((minifig) => minifig.id) || [],
     [minifigsList]
-  );
+  )
 
   const onClose = () => {
-    handleClose();
-    reset();
-    unregister();
-  };
+    handleClose()
+    reset()
+    unregister()
+  }
 
   const onSubmit: SubmitHandler<Minifig> = (data) => {
     if (editMinifigData?.id) {
-      return dispatch(editMinifig(data));
+      return dispatch(editMinifig(data))
     }
-    return dispatch(addMinifig(data));
-  };
+    return dispatch(addMinifig(data))
+  }
 
   return (
-    <Dialog
-      open
-      onClose={onClose}
-      aria-labelledby="minifig-form-dialog"
-      maxWidth="md"
-      fullWidth
-    >
+    <Dialog open onClose={onClose} aria-labelledby="minifig-form-dialog" maxWidth="md" fullWidth>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle id="minifig-form-dialog">
-          {editMinifigData?.id ? `Edit ${editMinifigData.id}` : "Add a minifig"}
+          {editMinifigData?.id ? `Edit ${editMinifigData.id}` : 'Add a minifig'}
         </DialogTitle>
         <DialogContent dividers>
           <Grid container direction="column" spacing={2}>
@@ -102,20 +96,16 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
                 name="id"
                 control={control}
                 rules={{
-                  required: "This field is required",
+                  required: 'This field is required',
                   pattern: {
                     value: /^sw[0-9]{4}[abcds]?$/,
-                    message:
-                      "This need to be a minifig reference (/^sw[0-9]{4}[abcds]?$/)",
+                    message: 'This need to be a minifig reference (/^sw[0-9]{4}[abcds]?$/)',
                   },
                   validate: (value) => {
-                    if (
-                      minifigsListIds.includes(value) &&
-                      value !== editMinifigData?.id
-                    ) {
-                      return "This minifig already exists";
+                    if (minifigsListIds.includes(value) && value !== editMinifigData?.id) {
+                      return 'This minifig already exists'
                     }
-                    return true;
+                    return true
                   },
                 }}
                 render={({ field, fieldState }) => {
@@ -133,7 +123,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
                         fullWidth: true,
                       }}
                     />
-                  );
+                  )
                 }}
               />
             </Grid>
@@ -142,7 +132,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
                 name="name"
                 control={control}
                 rules={{
-                  required: "This field is required",
+                  required: 'This field is required',
                 }}
                 render={({ field, fieldState }) => (
                   <Inputs
@@ -165,7 +155,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
                 name="characterName"
                 control={control}
                 rules={{
-                  required: "This field is required",
+                  required: 'This field is required',
                 }}
                 render={({ field, fieldState }) => (
                   <Inputs
@@ -209,9 +199,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
               <Controller
                 name="possessed"
                 control={control}
-                render={({ field }) => (
-                  <Inputs {...field} label="Possessed" type="switch" />
-                )}
+                render={({ field }) => <Inputs {...field} label="Possessed" type="switch" />}
               />
             </Grid>
           </Grid>
@@ -233,7 +221,7 @@ export const MinifigFormModal: React.FC<MinifigFormModalProps> = ({
         </DialogActions>
       </form>
     </Dialog>
-  );
-};
+  )
+}
 
-export default MinifigFormModal;
+export default MinifigFormModal

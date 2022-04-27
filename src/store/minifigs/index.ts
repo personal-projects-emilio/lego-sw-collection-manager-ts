@@ -1,6 +1,6 @@
-import minifigsReducer from './minifigsSlice';
+import minifigsReducer from './minifigsSlice'
 
-export * from './minifigsSelectors';
-export * from './minifigsSlice';
+export * from './minifigsSelectors'
+export * from './minifigsSlice'
 
-export default minifigsReducer;
+export default minifigsReducer
