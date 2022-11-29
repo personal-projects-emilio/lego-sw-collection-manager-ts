@@ -1,2 +1,2 @@
-import MinifigsList from "./MinifigsList"
-export default MinifigsList;
+import MinifigsList from './MinifigsList'
+export default MinifigsList

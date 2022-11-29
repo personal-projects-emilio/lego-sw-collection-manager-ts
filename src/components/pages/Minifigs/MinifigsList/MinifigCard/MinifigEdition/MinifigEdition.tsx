@@ -1,42 +1,33 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
-import { Minifig } from "interfaces/minifigs";
-import Inputs from "components/commons/inputs";
-import MinifigFormModal from "components/commons/MinifigFormModal/MinifigFormModal";
-import { useAppDispatch, useAppSelector, useToggle } from "hooks";
-import {
-  deleteMinifig,
-  selectMinifigsIsLoading,
-  toggleMinifigOwned,
-} from "store/minifigs";
-import Button from "components/commons/Button";
+import React from 'react'
+import Grid from '@mui/material/Grid'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogTitle from '@mui/material/DialogTitle'
+import { Minifig } from 'types/minifigs'
+import Inputs from 'components/commons/inputs'
+import MinifigFormModal from 'components/commons/MinifigFormModal/MinifigFormModal'
+import { useAppDispatch, useAppSelector, useToggle } from 'hooks'
+import { deleteMinifig, selectMinifigsAreLoading, toggleMinifigOwned } from 'store/minifigs'
+import Button from 'components/commons/Button'
 
-export type MinifigEditionProps = Minifig;
+export type MinifigEditionProps = Minifig
 
 export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
-  const { possessed, id, characterName, tags } = props;
-  const duplicateProps = {characterName, tags}
-  const [isEditModalOpen, toggleEditModalOpen] = useToggle();
-  const [isDuplicateModalOpen, toggleDuplicateModalOpen] = useToggle();
-  const [isDeleteModalOpen, toggleDeleteModalOpen] = useToggle();
+  const { possessed, id, characterName, tags } = props
+  const duplicateProps = { characterName, tags }
+  const [isEditModalOpen, toggleEditModalOpen] = useToggle()
+  const [isDuplicateModalOpen, toggleDuplicateModalOpen] = useToggle()
+  const [isDeleteModalOpen, toggleDeleteModalOpen] = useToggle()
 
-  const isLoading = useAppSelector(selectMinifigsIsLoading);
-  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(selectMinifigsAreLoading)
+  const dispatch = useAppDispatch()
   return (
-    <Grid
-      container
-      justifyContent="space-evenly"
-      alignItems="center"
-      sx={{paddingTop: 0.5}}
-    >
+    <Grid container justifyContent="space-evenly" alignItems="center" sx={{ paddingTop: 0.5 }}>
       <Tooltip title="Switch possession" aria-label="Switch possession tooltip">
         <span>
           <Inputs
@@ -59,7 +50,7 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
       </Tooltip>
       {(isEditModalOpen || isDuplicateModalOpen) && (
         <MinifigFormModal
-          handleClose={() => isEditModalOpen? toggleEditModalOpen() : toggleDuplicateModalOpen()}
+          handleClose={() => (isEditModalOpen ? toggleEditModalOpen() : toggleDuplicateModalOpen())}
           editMinifigData={isEditModalOpen ? props : duplicateProps}
         />
       )}
@@ -83,11 +74,7 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
             {`Are you sure you want to delete ${id}?`}
           </DialogTitle>
           <DialogActions>
-            <Button
-              onClick={() => toggleDeleteModalOpen()}
-              color="primary"
-              disabled={isLoading}
-            >
+            <Button onClick={() => toggleDeleteModalOpen()} color="primary" disabled={isLoading}>
               Cancel
             </Button>
             <Button
@@ -103,7 +90,7 @@ export const MinifigEdition: React.FC<MinifigEditionProps> = (props) => {
         </Dialog>
       )}
     </Grid>
-  );
-};
+  )
+}
 
-export default MinifigEdition;
+export default MinifigEdition

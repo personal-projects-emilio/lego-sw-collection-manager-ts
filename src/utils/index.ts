@@ -1,1 +1,1 @@
-export * from './minifigs';
+export * from './minifigs'

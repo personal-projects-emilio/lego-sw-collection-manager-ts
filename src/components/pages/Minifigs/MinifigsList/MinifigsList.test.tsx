@@ -1,7 +1,7 @@
-import React from "react";
-import produce from "immer";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
+import React from 'react'
+import produce from 'immer'
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
 import {
   render,
   screen,
@@ -9,11 +9,11 @@ import {
   initialStoreMocked,
   mockedMinifigsList,
   waitFor,
-} from "utils/test";
-import MinifigsList from "./MinifigsList";
-import { MinifigsList as MinifigsListType } from "interfaces/minifigs";
+} from 'utils/test'
+import MinifigsList from './MinifigsList'
+import { MinifigsList as MinifigsListType } from 'types/minifigs'
 
-describe("MinifigsList", () => {
+describe('MinifigsList', () => {
   const handlers = [
     rest.patch<{ possessed: boolean }>(
       `${process.env.REACT_APP_API_BASEURL}/*`,
@@ -22,8 +22,8 @@ describe("MinifigsList", () => {
           return res(
             ctx.delay(50),
             ctx.status(500),
-            ctx.json({ errorMessage: "Something went wrong" })
-          );
+            ctx.json({ errorMessage: 'Something went wrong' })
+          )
         }
         return res(
           ctx.json(
@@ -33,42 +33,39 @@ describe("MinifigsList", () => {
             }))
           ),
           ctx.delay(50)
-        );
+        )
       }
     ),
-    rest.put<MinifigsListType>(
-      `${process.env.REACT_APP_API_BASEURL}/*`,
-      (req, res, ctx) => {
-        if (req.body.length === 0) {
-          return res(
-            ctx.delay(50),
-            ctx.status(500),
-            ctx.json({ errorMessage: "Something went wrong" })
-          );
-        }
-        return res(ctx.json([]), ctx.delay(50));
+    rest.put<MinifigsListType>(`${process.env.REACT_APP_API_BASEURL}/*`, (req, res, ctx) => {
+      if (req.body.length === 0) {
+        return res(
+          ctx.delay(50),
+          ctx.status(500),
+          ctx.json({ errorMessage: 'Something went wrong' })
+        )
       }
-    ),
-  ];
+      return res(ctx.json([]), ctx.delay(50))
+    }),
+  ]
 
-  const server = setupServer(...handlers);
+  const server = setupServer(...handlers)
 
   // Enable API mocking before tests and hide expected error logs
   beforeAll(() => {
-    server.listen();
-    jest.spyOn(console, "error").mockImplementation(() => {});
-  });
+    server.listen()
+    jest.spyOn(console, 'error').mockImplementation(() => {})
+  })
 
   // Reset any runtime request handlers we may add during the tests
-  afterEach(() => server.resetHandlers());
+  afterEach(() => server.resetHandlers())
 
   // Disable API mocking after the tests are done
-  afterAll(() => server.close());
-  test("render null", async () => {
-    render(<MinifigsList />);
-    expect(screen.queryByTestId(/pagination/i)).toBeNull();
-    expect(screen.queryByText(/filters/i)).toBeNull();
-  });
+  afterAll(() => server.close())
+  test('render null', async () => {
+    render(<MinifigsList />)
+    expect(screen.queryByTestId(/pagination/i)).toBeNull()
+    expect(screen.queryByText(/filters/i)).toBeNull()
+  })
 
   // test("render no results", async () => {
   //   const preloadedState = produce(initialStoreMocked, (draft) => {
@@ -177,4 +174,4 @@ describe("MinifigsList", () => {
   //   await waitFor(() => expect(deleteButton).toHaveProperty("disabled", false));
   //   expect(switchElement).toHaveProperty("checked", false);
   // });
-});
+})
