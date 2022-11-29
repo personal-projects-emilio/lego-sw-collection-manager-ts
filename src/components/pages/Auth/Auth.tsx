@@ -1,39 +1,38 @@
-import React from "react";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import Inputs from "components/commons/inputs";
-import { useAppDispatch, useAppSelector, useToggle } from "hooks";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Button from "components/commons/Button";
-import { authenticate, selectAuthIsLoading } from "store/auth";
+import React from 'react'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import Inputs from 'components/commons/inputs'
+import { useAppDispatch, useAppSelector, useToggle } from 'hooks'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import Button from 'components/commons/Button'
+import { authenticate, selectAuthIsLoading } from 'store/auth'
 
 export type AuthInputs = {
-  email: string;
-  password: string;
-};
+  email: string
+  password: string
+}
 
 export const Auth: React.FC = () => {
-  const [showPassword, toggleShowPassword] = useToggle();
-  const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(selectAuthIsLoading);
+  const [showPassword, toggleShowPassword] = useToggle()
+  const dispatch = useAppDispatch()
+  const isLoading = useAppSelector(selectAuthIsLoading)
   const {
     control,
     handleSubmit,
     formState: { isValid },
   } = useForm<AuthInputs>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-    mode: "onChange",
-  });
+    mode: 'onChange',
+  })
 
-  const onSubmit: SubmitHandler<AuthInputs> = (data) =>
-    dispatch(authenticate(data));
+  const onSubmit: SubmitHandler<AuthInputs> = (data) => dispatch(authenticate(data))
 
   return (
     <Paper
@@ -42,7 +41,7 @@ export const Auth: React.FC = () => {
       sx={{
         padding: 2,
         margin: 2,
-        boxSizing: "border-box",
+        boxSizing: 'border-box',
         minHeight: (theme) => `calc(100% - ${theme.spacing(4)})`,
       }}
     >
@@ -52,11 +51,11 @@ export const Auth: React.FC = () => {
             name="email"
             control={control}
             rules={{
-              required: "This field is required",
+              required: 'This field is required',
               pattern: {
                 value:
                   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-                message: "This need to be a valid email",
+                message: 'This need to be a valid email',
               },
             }}
             render={({ field, fieldState }) => {
@@ -74,7 +73,7 @@ export const Auth: React.FC = () => {
                     fullWidth: true,
                   }}
                 />
-              );
+              )
             }}
           />
         </Grid>
@@ -83,7 +82,7 @@ export const Auth: React.FC = () => {
             name="password"
             control={control}
             rules={{
-              required: "This field is required",
+              required: 'This field is required',
             }}
             render={({ field, fieldState }) => {
               return (
@@ -97,7 +96,7 @@ export const Auth: React.FC = () => {
                     helperText: fieldState.error?.message,
                     required: true,
                     fullWidth: true,
-                    type: showPassword ? "text" : "password",
+                    type: showPassword ? 'text' : 'password',
                     InputProps: {
                       endAdornment: (
                         <InputAdornment position="end">
@@ -113,7 +112,7 @@ export const Auth: React.FC = () => {
                     },
                   }}
                 />
-              );
+              )
             }}
           />
         </Grid>
@@ -128,7 +127,7 @@ export const Auth: React.FC = () => {
         </Button>
       </Grid>
     </Paper>
-  );
-};
+  )
+}
 
-export default Auth;
+export default Auth

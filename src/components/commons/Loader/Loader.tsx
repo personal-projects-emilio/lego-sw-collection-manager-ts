@@ -1,8 +1,7 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
-import CircularProgress from "@mui/material/CircularProgress";
-import Typography from "@mui/material/Typography";
-
+import React from 'react'
+import Grid from '@mui/material/Grid'
+import CircularProgress from '@mui/material/CircularProgress'
+import Typography from '@mui/material/Typography'
 
 export const Loader = () => (
   <Grid
@@ -12,7 +11,7 @@ export const Loader = () => (
     direction="column"
     sx={{
       position: 'fixed',
-      height: "calc(100vh - 48px)"
+      height: 'calc(100vh - 48px)',
     }}
   >
     <CircularProgress size={200} thickness={2} disableShrink />
@@ -20,6 +19,6 @@ export const Loader = () => (
       Loading...
     </Typography>
   </Grid>
-);
+)
 
-export default Loader;
+export default Loader

@@ -1,30 +1,26 @@
-import React, { useMemo, useEffect } from "react";
-import Grid from "@mui/material/Grid";
-import Inputs from "components/commons/inputs";
-import { useAppDispatch, useAppSelector } from "hooks";
-import {
-  selectMinifigsFilters,
-  selectTagsAndCharacNames,
-  setMinifigsFilters,
-} from "store/minifigs";
-import { useForm, Controller, useWatch } from "react-hook-form";
-import { MinifigsFilters as MinifigsFiltersType } from "interfaces/minifigs";
-import isEqual from "fast-deep-equal";
-import usePrevious from "hooks/usePrevious";
+import React, { useMemo, useEffect } from 'react'
+import Grid from '@mui/material/Grid'
+import Inputs from 'components/commons/inputs'
+import { useAppDispatch, useAppSelector } from 'hooks'
+import { selectMinifigsFilters, selectTagsAndCharacNames, setMinifigsFilters } from 'store/minifigs'
+import { useForm, Controller, useWatch } from 'react-hook-form'
+import { MinifigsFilters as MinifigsFiltersType } from 'interfaces/minifigs'
+import isEqual from 'fast-deep-equal'
+import usePrevious from 'hooks/usePrevious'
 
 export const MinifigsFilters: React.FC = () => {
-  const { tags, characNames } = useAppSelector(selectTagsAndCharacNames);
-  const dispatch = useAppDispatch();
-  const filters = useAppSelector(selectMinifigsFilters);
-  const previousFilters = usePrevious(filters);
+  const { tags, characNames } = useAppSelector(selectTagsAndCharacNames)
+  const dispatch = useAppDispatch()
+  const filters = useAppSelector(selectMinifigsFilters)
+  const previousFilters = usePrevious(filters)
   const { control, reset } = useForm<MinifigsFiltersType>({
     defaultValues: filters,
-  });
+  })
   const filtersFormValues = useWatch({
     control: control,
     defaultValue: filters,
-  });
-  const previousFiltersFormValues = usePrevious(filtersFormValues);
+  })
+  const previousFiltersFormValues = usePrevious(filtersFormValues)
 
   useEffect(() => {
     // If the filtersFormValues change and not the filters that means the form
@@ -33,20 +29,17 @@ export const MinifigsFilters: React.FC = () => {
       !isEqual(filters, filtersFormValues) &&
       !isEqual(previousFiltersFormValues, filtersFormValues)
     ) {
-      dispatch(setMinifigsFilters(filtersFormValues));
+      dispatch(setMinifigsFilters(filtersFormValues))
     }
-  }, [dispatch, filtersFormValues, previousFiltersFormValues, filters]);
+  }, [dispatch, filtersFormValues, previousFiltersFormValues, filters])
 
   useEffect(() => {
     // If the filters change and not the filtersFormValues that means the
     // filters were reset in the store so we reset the form
-    if (
-      !isEqual(filters, previousFilters) &&
-      !isEqual(filters, filtersFormValues)
-    ) {
-      reset(filters);
+    if (!isEqual(filters, previousFilters) && !isEqual(filters, filtersFormValues)) {
+      reset(filters)
     }
-  }, [filters, previousFilters, filtersFormValues, reset]);
+  }, [filters, previousFilters, filtersFormValues, reset])
 
   const characNamesOptions = useMemo(
     () =>
@@ -55,7 +48,7 @@ export const MinifigsFilters: React.FC = () => {
         value: characName.name,
       })) || [],
     [characNames]
-  );
+  )
 
   const tagsOptions = useMemo(
     () =>
@@ -64,7 +57,7 @@ export const MinifigsFilters: React.FC = () => {
         value: tag.name,
       })) || [],
     [tags]
-  );
+  )
 
   return (
     <Grid container direction="column" spacing={2}>
@@ -78,7 +71,7 @@ export const MinifigsFilters: React.FC = () => {
               label="Show"
               type="radiobuttons"
               row
-              options={["all", "owned", "missing"]}
+              options={['all', 'owned', 'missing']}
             />
           )}
         />
@@ -114,7 +107,7 @@ export const MinifigsFilters: React.FC = () => {
         />
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default MinifigsFilters;
+export default MinifigsFilters

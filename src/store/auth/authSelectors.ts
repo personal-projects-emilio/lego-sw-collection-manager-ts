@@ -1,5 +1,5 @@
-import { RootState } from "../index"
+import { RootState } from '../index'
 
-export const selectIsAuthenticate = (state: RootState) => !!state.auth.token;
+export const selectIsAuthenticate = (state: RootState) => !!state.auth.token
 
-export const selectAuthIsLoading = (state: RootState) => state.auth.isLoading;
+export const selectAuthIsLoading = (state: RootState) => state.auth.isLoading

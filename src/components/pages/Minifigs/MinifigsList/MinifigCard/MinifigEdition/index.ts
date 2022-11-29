@@ -1,2 +1,2 @@
-import MinifigEdition from './MinifigEdition';
-export default MinifigEdition;
+import MinifigEdition from './MinifigEdition'
+export default MinifigEdition

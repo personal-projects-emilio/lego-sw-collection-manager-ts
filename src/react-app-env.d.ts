@@ -1,6 +1,6 @@
 /// <reference types="react-scripts" />
 
-declare module '@react-mock/localstorage';
+declare module '@react-mock/localstorage'
 
 declare namespace NodeJS {
   interface ProcessEnv {

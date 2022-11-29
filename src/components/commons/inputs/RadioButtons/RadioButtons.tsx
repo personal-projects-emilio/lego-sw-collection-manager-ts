@@ -1,10 +1,10 @@
-import React from "react";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
-import { RadioButtonsProps } from "../interface";
+import React from 'react'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Radio from '@mui/material/Radio'
+import { RadioButtonsProps } from '../interface'
 
 export const RadioButtons = React.forwardRef<any, RadioButtonsProps>(
   ({ value, label, options, row, ...props }, ref) => (
@@ -21,7 +21,7 @@ export const RadioButtons = React.forwardRef<any, RadioButtonsProps>(
       >
         {options.map((option) => (
           <FormControlLabel
-            sx={{ textTransform:  'capitalize' }}
+            sx={{ textTransform: 'capitalize' }}
             key={option}
             value={option}
             control={<Radio />}
@@ -31,6 +31,6 @@ export const RadioButtons = React.forwardRef<any, RadioButtonsProps>(
       </RadioGroup>
     </FormControl>
   )
-);
+)
 
-export default RadioButtons;
+export default RadioButtons

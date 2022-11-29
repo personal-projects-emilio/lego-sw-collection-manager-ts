@@ -1,6 +1,6 @@
-import React from "react";
-import TextField from "@mui/material/TextField";
-import { TextFieldProps } from "../interface";
+import React from 'react'
+import TextField from '@mui/material/TextField'
+import { TextFieldProps } from '../interface'
 
 export const CustomTextField = React.forwardRef<any, TextFieldProps>(
   ({ muiProps, ...props }, ref) => (
@@ -12,6 +12,6 @@ export const CustomTextField = React.forwardRef<any, TextFieldProps>(
       {...props}
     />
   )
-);
+)
 
-export default CustomTextField;
+export default CustomTextField

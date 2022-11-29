@@ -1,2 +1,2 @@
-import NameAndTags from './NameAndTags';
-export default NameAndTags;
+import NameAndTags from './NameAndTags'
+export default NameAndTags
