@@ -1,7 +1,7 @@
-import React from "react";
-import RouterProvider from "./RouterProvider";
-import ThemeProvider from "./ThemeProvider";
-import StoreProvider from "./StoreProvider";
+import React from 'react'
+import RouterProvider from './RouterProvider'
+import ThemeProvider from './ThemeProvider'
+import StoreProvider from './StoreProvider'
 
 export const Providers: React.FC = ({ children }) => (
   <RouterProvider>
@@ -9,6 +9,6 @@ export const Providers: React.FC = ({ children }) => (
       <ThemeProvider>{children}</ThemeProvider>
     </StoreProvider>
   </RouterProvider>
-);
+)
 
-export default Providers;
+export default Providers

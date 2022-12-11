@@ -1,2 +1,2 @@
-import Minifigs from './Minifigs';
-export default Minifigs;
+import Minifigs from './Minifigs'
+export default Minifigs

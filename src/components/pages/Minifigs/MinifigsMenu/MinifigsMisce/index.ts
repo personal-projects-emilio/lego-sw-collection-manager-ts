@@ -1,2 +1,2 @@
-import MinifigsMisce from './MinifigsMisce';
-export default MinifigsMisce;
+import MinifigsMisce from './MinifigsMisce'
+export default MinifigsMisce

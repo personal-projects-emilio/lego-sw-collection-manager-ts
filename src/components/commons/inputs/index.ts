@@ -1,2 +1,2 @@
-import Inputs from './Inputs';
-export default Inputs;
+import Inputs from './Inputs'
+export default Inputs

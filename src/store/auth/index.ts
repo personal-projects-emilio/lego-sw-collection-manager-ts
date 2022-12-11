@@ -1,7 +1,7 @@
-import authReducer from './authSlice';
+import authReducer from './authSlice'
 
-export * from './authSelectors';
-export * from './authSlice';
-export * from './authMiddleware';
+export * from './authSelectors'
+export * from './authSlice'
+export * from './authMiddleware'
 
-export default authReducer;
+export default authReducer

@@ -1,22 +1,28 @@
-import React, { useEffect } from "react";
-import Header from "components/commons/Header";
-import Routes from "./routes";
-import { useAppDispatch } from "hooks";
-import { tryAutoSignIn } from "store/auth";
+import React, { useEffect } from 'react'
+import Header from 'components/commons/Header'
+import Routes from './routes'
+import { useAppDispatch, useAppSelector } from 'hooks'
+import { tryAutoSignIn } from 'store/auth'
+import { selectMinifigsList, fetchMinifigs } from 'store/minifigs'
 
 const App = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
+  const minifigsList = useAppSelector(selectMinifigsList)
 
   useEffect(() => {
-    dispatch(tryAutoSignIn());
-  }, [dispatch]);
+    !minifigsList && dispatch(fetchMinifigs())
+  }, [minifigsList, dispatch])
+
+  useEffect(() => {
+    dispatch(tryAutoSignIn())
+  }, [dispatch])
 
   return (
     <>
       <Header />
       <Routes />
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
